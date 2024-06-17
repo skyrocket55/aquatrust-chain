@@ -63,6 +63,10 @@ class WaterDonation extends Contract {
         }
     }
 
+    async emitEvent(ctx, name, payload) {
+        ctx.stub.setEvent(name, Buffer.from(payload));
+    }
+
     composeCollectionName(orgs) {
         return orgs.sort().join('-');
     }

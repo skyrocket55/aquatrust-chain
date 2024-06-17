@@ -1,7 +1,9 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
+const util = require('util');
 const { Wallets, Gateway } = require('fabric-network');
+const { log } = require('console');
 
 const app = express();
 const port = 3000;
@@ -41,14 +43,54 @@ async function getContract(identityLabel) {
     return network.getContract('water_donation');
 }
 
+// Add block listener function
+async function addBlockListener() {
+    console.log('Adding block listener...');
+    const network = await gateway.getNetwork('mychannel');
+
+    // Return a promise that resolves once the block listener is added
+    return new Promise((resolve, reject) => {
+        const listener = async (blockEvent) => {
+            try {
+                console.log();
+                console.log('-----------------Block listener-----------------');
+                // Extract block number from the header
+                let blockNumber = blockEvent.blockData.header.number.toNumber();
+                console.log(`Block number: ${blockNumber}`);
+                console.log(`Block header: ${util.inspect(blockEvent.blockData.header, { showHidden: false, depth: 5 })}`);
+                console.log(`Block data: ${util.inspect(blockEvent.blockData.data, { showHidden: false, depth: 5 })}`);
+                
+                console.log('------------------------------------------------');
+                console.log();
+                // Resolve with block number
+                resolve({ blockNumber: blockNumber });
+            } catch (error) {
+                reject(error);
+            }
+        };
+
+        // Add the listener function to block events
+        network.addBlockListener(listener, { filtered: false }); // { filtered: false } to receive all blocks
+    });
+}
+
 app.post('/api/send-donation', async (req, res) => {
+    let listener;
     try {
         const { functionName, args } = req.body;
         const identityLabel = req.headers['identitylabel'];
         const contract = await getContract(identityLabel);
 
         const response = await contract.submitTransaction(functionName, ...args);
-        res.status(200).json({ message: 'Transaction submitted successfully', transaction: response.toString() });
+
+        // Call block listener function after submitting transaction
+        const { blockNumber } = await addBlockListener();
+        
+        // Respond with the transaction ID and message
+        res.status(200).json({ 
+            message: 'Donation submitted successfully',
+            blockNumber: blockNumber
+        });
     } catch (error) {
         console.error(`Error processing transaction: ${error}`);
         if (error.message.includes('does not exist')) {
@@ -62,6 +104,9 @@ app.post('/api/send-donation', async (req, res) => {
         }
     } finally {
         gateway.disconnect();
+        if (listener) {
+            listener.disconnect(); // Disconnect the block listener if it was successfully created
+        }
     }
 });
 
