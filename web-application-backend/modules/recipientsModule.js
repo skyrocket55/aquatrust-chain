@@ -25,6 +25,20 @@ class Recipients {
         }
     }
 
+    async getRecipientsById(recipient_id) {
+        return RecipientsModel.findByPk(recipient_id)
+            .then(recipient => {
+                if (!recipient) {
+                    throw new Error(`No recipient found with id ${recipient_id}`);
+                } else {
+                    return recipient.toJSON();
+                }
+            })
+            .catch(error => {
+                throw new Error(`Error getting recipient: ${error.message}`);
+            });
+    }
+
     async sendRecipient(ngo_name, profile, phone, email, address, contact_person, date_registered, communities_supported, water_demand, total_donation_received) {
         try{
             const newRecipient = await RecipientsModel.create({

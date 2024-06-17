@@ -27,9 +27,9 @@ router.get('/get', async (req, res) => {
 // POST endpoint to save donations
 router.post('/register', async (req, res) => {
     try {
-        const { donation_id, donor_id, recipient_id, donation_date, amount, status, comments } = req.body;
+        const { donor_id, recipient_id, donation_date, amount, status, comments } = req.body;
         console.log(`${req.method} ${req.url}`);
-        const donationCreated = await donationsModule.sendDonation(donation_id, donor_id, recipient_id, donation_date, amount, status, comments);
+        const donationCreated = await donationsModule.sendDonation(donor_id, recipient_id, donation_date, amount, status, comments);
         res.status(201).json(donationCreated);    
     } catch (error) {
         res.status(500).json({

@@ -20,14 +20,28 @@ class Donors {
                 limit, // size or num of records per page
                 offset, // page * size
             });
-            return donors; 
+            return donors;
         } catch (error) {
             throw new Error(`Error getting donors history: ${error.message}`);
         }
     }
 
+    async getDonorsById(donor_id) {
+        return DonorsModel.findByPk(donor_id)
+            .then(donor => {
+                if (!donor) {
+                    throw new Error(`No donor found with id ${donor_id}`);
+                } else {
+                    return donor.toJSON();
+                }
+            })
+            .catch(error => {
+                throw new Error(`Error getting donor: ${error.message}`);
+            });
+    }
+
     async sendDonor(company_name, phone, email, address, contact_person, donor_type, date_joined, donation_allocation) {
-        try{
+        try {
             const newDonor = await DonorsModel.create({
                 company_name,
                 phone,
@@ -37,7 +51,7 @@ class Donors {
                 donor_type,
                 date_joined,
                 donation_allocation,
-            }); 
+            });
             return newDonor;
         }
         catch (err) {

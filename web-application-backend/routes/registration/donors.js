@@ -24,6 +24,22 @@ router.get('/get', async (req, res) => {
     }
 }); 
 
+// GET endpoint to get a donor by id
+router.get('/get/:id', async (req, res) => {
+    const donor_id = req.params['id'];
+    try{
+        const donor = await donorsModule.getDonorsById(donor_id);
+        res.status(200).json(donor)
+        console.log(`${req.method} ${req.url}`);
+    }
+    catch (error) {
+        res.status(500).json({
+         message: 
+            error.message || "An error occurred while retrieving donors."
+        });
+    }
+});
+
 // POST endpoint to save donors
 router.post('/register', async (req, res) => {
     try {

@@ -24,6 +24,22 @@ router.get('/get', async (req, res) => {
     }
 }); 
 
+// GET endpoint to get a recipient by id
+router.get('/get/:id', async (req, res) => {
+    const recipient_id = req.params['id'];
+    try{
+        const recipient = await recipientsModule.getRecipientsById(recipient_id);
+        res.status(200).json(recipient)
+        console.log(`${req.method} ${req.url}`);
+    }
+    catch (error) {
+        res.status(500).json({
+         message: 
+            error.message || "An error occurred while retrieving recipients."
+        });
+    }
+});
+
 // POST endpoint to save recipients
 router.post('/register', async (req, res) => {
     try {
