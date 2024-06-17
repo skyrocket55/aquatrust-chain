@@ -1,10 +1,14 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize, Sequelize) => {
-    const Donors = sequelize.define('donors', {
-        company_name: {
+    const Recipients = sequelize.define('recipients', {
+        ngo_name: {
             type: DataTypes.STRING,
             allowNull: false,
+        },
+        profile: {
+            type: DataTypes.STRING,
+            allowNull: true,
         },
         phone: {
             type: DataTypes.STRING,
@@ -22,18 +26,22 @@ module.exports = (sequelize, Sequelize) => {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        donor_type: {
-            type:  DataTypes.ENUM('SUPPLIER', 'BUYER'),
-            allowNull: false,
-        },
-        date_joined: {
-            type:  DataTypes.STRING,
+        date_registered: {
+            type: DataTypes.STRING,
             allowNull: true,
         },
-        donation_allocation: {
-            type:  DataTypes.STRING,
-            allowNull: false,
+        communities_supported: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        water_demand: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        total_donation_received: {
+            type: DataTypes.STRING,
+            allowNull: true,
         },
     });
-    return Donors;
+    return Recipients;
 };

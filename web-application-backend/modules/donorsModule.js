@@ -1,8 +1,8 @@
 // Donors Model
 const db = require('../models');
 const DonorsModel = db.donors;
-// Transactions Status Enum
-const StatusEnum = require('../enums/statusEnum');
+// Donors Type Enum
+const DonorTypeEnum = require('../enums/donorTypeEnum');
 const { faker } = require('@faker-js/faker');
 const SHA256 = require("crypto-js/sha256");
 // Pagination Helper
@@ -10,22 +10,41 @@ const PaginationUtil = require('../util/paginationUtil');
 const paginationUtil = new PaginationUtil();
 
 class Donors {
-    // Get transaction list in DESC order
+    // Get donors list in DESC order
     // Optional params page and size - default values to allow pagination
-    async getTransactionHistory(page, size) {
+    async getDonorsHistory(page, size) {
         try {
             const { limit, offset } = paginationUtil.getPagination(page, size);
-            const transactions = await DonorsModel.findAndCountAll({
-                order: [['createdAt', 'DESC']], // Order by createdAt in descending order
+            const donors = await DonorsModel.findAndCountAll({
+                order: [['id', 'DESC']], // Order by donor id in descending order
                 limit, // size or num of records per page
                 offset, // page * size
             });
-            return transactions; 
+            return donors; 
         } catch (error) {
-            throw new Error(`Error getting transaction history: ${error.message}`);
+            throw new Error(`Error getting donors history: ${error.message}`);
         }
     }
 
+    async sendDonor(company_name, phone, email, address, contact_person, donor_type, date_joined, donation_allocation) {
+        try{
+            const newDonor = await DonorsModel.create({
+                company_name,
+                phone,
+                email,
+                address,
+                contact_person,
+                donor_type,
+                date_joined,
+                donation_allocation,
+            }); 
+            return newDonor;
+        }
+        catch (err) {
+            console.error('Error saving donor:', err);
+            return err;
+        }
+    }
 }
 
 module.exports = Donors;

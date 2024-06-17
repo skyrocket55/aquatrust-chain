@@ -1,8 +1,8 @@
 module.exports = {
-  HOST: "127.0.0.1",
-  USER: "ciel",
-  PASSWORD: "",
-  DB: "blockchain-explorer", // create aquatrust db on your local
+  HOST: "localhost",
+  USER: "postgres",
+  PASSWORD: "admin",
+  DB: "aquatrust", // create aquatrust db on your local
   dialect: "postgres",
   pool: {
     max: 5,
