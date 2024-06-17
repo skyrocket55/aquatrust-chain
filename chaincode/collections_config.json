@@ -15,7 +15,7 @@
     "maxPeerCount": 3,
     "blockToLive": 0,
     "memberOnlyRead": true,
-    "memberOnlyWrite": true
+    "memberOnlyWrite": false
   },
   {
     "name": "Org2MSP-Org3MSP",
@@ -24,6 +24,6 @@
     "maxPeerCount": 3,
     "blockToLive": 0,
     "memberOnlyRead": true,
-    "memberOnlyWrite": true
+    "memberOnlyWrite": false
   }
 ]

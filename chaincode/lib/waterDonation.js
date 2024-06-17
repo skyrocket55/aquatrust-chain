@@ -27,20 +27,21 @@ class WaterDonation extends Contract {
             donorId: donorHash,
             recipientId: recipientHash,
             amount: amount,
-            status: DonationStatus.Pending, // Initial status when donation is created
+            status: DonationStatus.Completed,
             dateUTC: dateUTC
         };
 
-        // private data collection name shared between the donor and the recipient
-        const collection = this._composeCollectionName('Org1MSP', 'Org2MSP');
+        // private data collection name shared between Org1MSP and Org2MSP (write access) and Org3MSP (read access)
+        //const collection = this.composeCollectionName(['Org1MSP', 'Org2MSP']);
+        const collection = this.getCollection(ctx, true); // Allow write access for Org1MSP and Org2MSP only
         console.log('collection: ', collection);
 
         // Store donation in the ledger
-        await this._putDonation(ctx, donationObjType, donation, collection);
+        await this.putDonation(ctx, donationObjType, donation, collection);
     }
 
     async queryDonation(ctx, donationId) {
-        const collection = this._composeCollectionName('Org1MSP', 'Org3MSP');
+        const collection = this.getCollection(ctx, false); // Allow read access for Org1MSP, Org2MSP, and Org3MSP
         const compositeKey = ctx.stub.createCompositeKey(donationObjType, [donationId]);
         const donationBytes = await ctx.stub.getPrivateData(collection, compositeKey);
         console.log('donationBytes: ', donationBytes);
@@ -51,7 +52,7 @@ class WaterDonation extends Contract {
         return donationBytes.toString();
     }
 
-    async _putDonation(ctx, assetObjType, donation, collection='') {
+    async putDonation(ctx, assetObjType, donation, collection='') {
         const compositeKey = ctx.stub.createCompositeKey(assetObjType, [donation.donationId]);
         
         collection = collection || '';
@@ -62,8 +63,22 @@ class WaterDonation extends Contract {
         }
     }
 
-    _composeCollectionName(org1, org3) {
-        return [org1, org3].sort().join('-');
+    composeCollectionName(orgs) {
+        return orgs.sort().join('-');
+    }
+
+    getCollection(ctx, allowWrite) {
+        const mspID = ctx.clientIdentity.getMSPID();
+        if (mspID === 'Org1MSP' || mspID === 'Org2MSP') {
+            return this.composeCollectionName(['Org1MSP', 'Org2MSP']);
+        } else if (mspID === 'Org3MSP') {
+            if (allowWrite) {
+                throw new Error('Unauthorized access - Org3MSP cannot write');
+            }
+            return this.composeCollectionName(['Org1MSP', 'Org3MSP']);
+        } else {
+            throw new Error('Unauthorized access');
+        }
     }
 }
 

@@ -51,10 +51,14 @@ app.post('/api/send-donation', async (req, res) => {
         res.status(200).json({ message: 'Transaction submitted successfully', transaction: response.toString() });
     } catch (error) {
         console.error(`Error processing transaction: ${error}`);
-        if (error.message.includes('tx creator does not have write access permission')) {
+        if (error.message.includes('does not exist')) {
+            res.status(404).json({ error: `Donation with ID ${donationId} does not exist` });
+        } else if (error.message.includes('Unauthorized access')) {
             res.status(403).json({ error: 'You do not have permission to perform this action' });
+        } else if (error.message.includes('No valid responses from any peers')) {
+            res.status(500).json({ error: 'No valid responses from any peers. Unauthorized access - Org3MSP cannot write' });
         } else {
-            res.status(500).json({ error: 'Failed to submit donation' });
+            res.status(500).json({ error: 'Failed to fetch donation' });
         }
     } finally {
         gateway.disconnect();
@@ -72,7 +76,9 @@ app.get('/api/query-donation/:donationId', async (req, res) => {
     } catch (error) {
         console.error(`Error processing transaction: ${error}`);
         if (error.message.includes('does not exist')) {
-            res.status(403).json({ error: ' Donation with ID ' + donationId + ' does not exist' });
+            res.status(404).json({ error: `Donation with ID ${donationId} does not exist` });
+        } else if (error.message.includes('Unauthorized access')) {
+            res.status(403).json({ error: 'You do not have permission to perform this action' });
         } else {
             res.status(500).json({ error: 'Failed to fetch donation' });
         }
