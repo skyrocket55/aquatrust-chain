@@ -15,6 +15,7 @@ class _DonateMainPageState extends State<DonateMainPage> {
   int currentIndex = 0;
   int count = 3;
   List<String> pageTitle = ["Select NGO", "Select Water Quantity", "Confirm"];
+  PageController donationPageController = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -39,22 +40,42 @@ class _DonateMainPageState extends State<DonateMainPage> {
               ),
             ),
           ),
-          SelectNgoScreen(),
-          TextButton(
-            onPressed: () {
-              setState(() {
-                if (currentIndex < count-1) currentIndex++;
-              });
-            },
-            child: Text("Next"),
+          Expanded(
+            child: PageView(
+              controller: donationPageController,
+              scrollDirection: Axis.horizontal,
+              physics: const NeverScrollableScrollPhysics(),
+              children: const [
+                SelectNgoScreen(),
+                SelectWaterQuantityScreen(),
+                ConfirmDonationScreen(),
+                FinishDonationScreen()
+              ],
+            ),
           ),
           TextButton(
             onPressed: () {
-              setState(() {
-                if (currentIndex >0 ) currentIndex--;
-              });
+              if (currentIndex < count - 1) {
+                donationPageController.nextPage(
+                  duration: const Duration(milliseconds: 100),
+                  curve: Curves.linear,
+                );
+                setState(() => currentIndex++);
+              }
             },
-            child: Text("Back"),
+            child: const Text("Next"),
+          ),
+          TextButton(
+            onPressed: () {
+              if (currentIndex > 0) {
+                donationPageController.previousPage(
+                  duration: const Duration(milliseconds: 100),
+                  curve: Curves.linear,
+                );
+                setState(() => currentIndex--);
+              }
+            },
+            child: const Text("Back"),
           ),
         ],
       ),
