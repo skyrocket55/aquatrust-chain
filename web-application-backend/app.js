@@ -9,14 +9,12 @@ app.use(cors());
 app.use(express.json());
 
 // Import the routes
-const registrationDonorRoute = require('./routes/registration/donors');
-const registrationRecipientRoute = require('./routes/registration/recipients');
-const registrationDonationRoute = require('./routes/registration/donations');
+const DonationRoute = require('./routes/donations');
+const registrationRoute = require('./routes/registration');
 
 // Use the routes
-app.use('/registration/donors', registrationDonorRoute);
-app.use('/registration/recipients', registrationRecipientRoute);
-app.use('/registration/donations', registrationDonationRoute);
+app.use('/registration', registrationRoute);
+app.use('/donations', DonationRoute);
 
 // Define the port for the server
 const PORT = process.env.port || 3001;

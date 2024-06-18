@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 // Import then Create an instance of Donations Module
-const DonationsModule = require('../../modules/donationsModule');
+const DonationsModule = require('../modules/donationsModule');
 const donationsModule = new DonationsModule();
 // Pagination Helper
-const PaginationUtil = require('../../util/paginationUtil');
+const PaginationUtil = require('../util/paginationUtil');
 const paginationUtil = new PaginationUtil();
 
 // GET endpoint to get donations
