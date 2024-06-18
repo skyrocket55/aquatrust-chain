@@ -4,6 +4,12 @@
 
 ### Features
 
+1. Get a list of donors
+2. Get a donor by id
+3. Register a new donor
+4. Get a list of recipients
+5. Get a recipient by id
+6. Register a new recipient
 
 ### Sample cURL snippets and Response
 1. GET http://localhost:3001/registration/donors
