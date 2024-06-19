@@ -1,119 +1,119 @@
+import 'package:bwt_frontend/src/features/donate/controller/donation_controller.dart';
+import 'package:bwt_frontend/src/features/donate/repo/backend_repo.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:bwt_frontend/src/features/donate/donate.dart'
-    show RecipientModel;
+    show DonorModel, RecipientModel;
+import 'package:loading_overlay/loading_overlay.dart';
 
-class SelectNgoScreen extends StatefulWidget {
+class SelectNgoScreen extends ConsumerStatefulWidget {
   const SelectNgoScreen({super.key});
 
   @override
-  State<SelectNgoScreen> createState() => _SelectNgoScreenState();
+  ConsumerState<SelectNgoScreen> createState() => _SelectNgoScreenState();
 }
 
-class _SelectNgoScreenState extends State<SelectNgoScreen> {
-  List<RecipientModel> recipientList = [];
-  RecipientModel? currentSelectedRecipient;
+class _SelectNgoScreenState extends ConsumerState<SelectNgoScreen> {
+  List<RecipientModel> ngos = [];
+  List<DonorModel> donors = [];
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _loadNgo();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    double deviceWidth = MediaQuery.of(context).size.width;
-    final recipient1 = RecipientModel(
-      ngoName: "Hope for Tomorrow",
-      profile: "Education and Healthcare",
-      phone: "(555) 555-1234",
-      email: "hope@tomorrow.org",
-      address: "123 Main Street, Anytown, CA 12345",
-      contactPerson: "Sarah Jones",
-      dateRegistered: DateTime.now(),
-      communitiesSupported: "Low-income families, Children",
-      waterDemand: "High",
-      totalDonationReceived: "\$10,000",
-    );
-
-    final recipient2 = RecipientModel(
-      ngoName: "Clean Water Initiative",
-      profile: "Water Sanitation and Hygiene",
-      phone: "(555) 555-5678",
-      email: "cleanwater@initiative.org",
-      address: "456 Elm Street, Anytown, CA 98765",
-      contactPerson: "David Lee",
-      dateRegistered: DateTime.now(),
-      communitiesSupported: "Rural communities",
-      waterDemand: "Critical",
-      totalDonationReceived: "\$5,000",
-    );
-
-    final recipient3 = RecipientModel(
-      ngoName: "Animal Shelter Network",
-      profile: "Animal Welfare",
-      phone: "(555) 555-9012",
-      email: "animalshelter@network.com",
-      address: "789 Oak Street, Anytown, NY 54321",
-      contactPerson: "Maria Garcia",
-      dateRegistered: DateTime.now().subtract(const Duration(days: 30)),
-      // 30 days ago
-      communitiesSupported: "Abandoned pets",
-      waterDemand: "Moderate",
-      totalDonationReceived: "\$2,000",
-    );
-
-    final List<RecipientModel> recipientList = [
-      recipient1,
-      recipient2,
-      recipient3,
-    ];
-
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: deviceWidth > 900 ? 300.w : 100.w,
-      ),
+    return LoadingOverlay(
+      isLoading: false,
       child: Column(
         children: [
           SearchableDropdown(
-            ngoNames: recipientList,
+            ngoNames: donors,
+            onChange: (newDonor) {
+              if (newDonor?.id != null) {
+                ref
+                    .read(donationControllerProvider.notifier)
+                    .setCurrentSelectDonor(newDonor!.id!);
+              }
+            },
+            title: 'Select A Donor',
+          ),
+          SearchableDropdown(
+            ngoNames: ngos,
             onChange: (newRecipient) {
-              setState(() {
-                currentSelectedRecipient = newRecipient;
-              });
-
-              print(currentSelectedRecipient?.ngoName);
+              if (newRecipient?.id != null) {
+                ref
+                    .read(donationControllerProvider.notifier)
+                    .setCurrentSelectNgo(newRecipient!.id!);
+              }
+            },
+            title: 'Select A NGO',
+          ),
+          Consumer(
+            builder: (BuildContext context, WidgetRef ref, Widget? child) {
+              if (ref.watch(donationControllerProvider).selectedRecipientId !=
+                  -1) {
+                final state = ref.watch(donationControllerProvider);
+                final currentSelectedRecipient = ngos.firstWhere(
+                  (element) => element.id == state.selectedRecipientId,
+                );
+                return Column(
+                  children: [
+                    Text(
+                      "NGO Details:",
+                      style: TextStyle(
+                        fontSize: 22.h,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    ListView(
+                      shrinkWrap: true,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 100.w,
+                      ),
+                      children: [
+                        buildListTile(
+                          icon: Icons.person,
+                          title: "Name",
+                          description: currentSelectedRecipient.ngoName,
+                        ),
+                        buildListTile(
+                          icon: Icons.ac_unit_outlined,
+                          title: "Profile",
+                          description: currentSelectedRecipient.profile,
+                        ),
+                        buildListTile(
+                          icon: Icons.group,
+                          title: "Communities",
+                          description:
+                              currentSelectedRecipient.communitiesSupported,
+                        ),
+                        buildListTile(
+                          icon: Icons.water,
+                          title: "Water Demand",
+                          description: currentSelectedRecipient.waterDemand,
+                        ),
+                        buildListTile(
+                          icon: Icons.wallet,
+                          title: "Donation Received",
+                          description:
+                              currentSelectedRecipient.totalDonationReceived,
+                        ),
+                      ],
+                    ),
+                  ],
+                );
+              } else {
+                return const SizedBox();
+              }
             },
           ),
-          if (currentSelectedRecipient != null)
-            ListView(
-              shrinkWrap: true,
-              padding: EdgeInsets.symmetric(
-                horizontal: 100.w,
-              ),
-              children: [
-                buildListTile(
-                  icon: Icons.person,
-                  title: "Name",
-                  description: currentSelectedRecipient!.ngoName,
-                ),
-                buildListTile(
-                  icon: Icons.ac_unit_outlined,
-                  title: "Profile",
-                  description: currentSelectedRecipient!.profile,
-                ),
-                buildListTile(
-                  icon: Icons.group,
-                  title: "Communities",
-                  description: currentSelectedRecipient!.communitiesSupported,
-                ),
-                buildListTile(
-                  icon: Icons.water,
-                  title: "Water Demand",
-                  description: currentSelectedRecipient!.waterDemand,
-                ),
-                buildListTile(
-                  icon: Icons.wallet,
-                  title: "Donation Received",
-                  description: currentSelectedRecipient!.totalDonationReceived,
-                ),
-              ],
-            ),
         ],
       ),
     );
@@ -136,32 +136,48 @@ class _SelectNgoScreenState extends State<SelectNgoScreen> {
       ),
     );
   }
+
+  void _loadNgo() async {
+    ngos = await ref.read(backendRepoProvider).getNgosList();
+    donors = await ref.read(backendRepoProvider).getDonorsList();
+    ref.read(donationControllerProvider.notifier).setRecipientList(ngos);
+    ref.read(donationControllerProvider.notifier).setDonorList(donors);
+    setState(() {});
+  }
 }
 
 class SearchableDropdown extends StatelessWidget {
-  final List<RecipientModel> ngoNames;
-  final void Function(RecipientModel? newRecipient) onChange;
+  final List<dynamic> ngoNames;
+  final void Function(dynamic newRecipient) onChange;
+  final String title;
 
   const SearchableDropdown({
     super.key,
     required this.ngoNames,
     required this.onChange,
+    required this.title,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: DropdownSearch<RecipientModel>(
+      child: DropdownSearch<dynamic>(
         items: ngoNames,
-        dropdownDecoratorProps: const DropDownDecoratorProps(
+        dropdownDecoratorProps: DropDownDecoratorProps(
           dropdownSearchDecoration: InputDecoration(
-            labelText: "Select a Recipient",
-            contentPadding: EdgeInsets.fromLTRB(12, 12, 8, 0),
-            border: OutlineInputBorder(),
+            labelText: title,
+            contentPadding: const EdgeInsets.fromLTRB(12, 12, 8, 0),
+            border: const OutlineInputBorder(),
           ),
         ),
-        itemAsString: (recipient) => recipient.ngoName,
+        itemAsString: (recipient) {
+          try {
+            return recipient.ngoName;
+          } catch (e) {
+            return recipient.companyName;
+          }
+        },
         popupProps: const PopupProps.menu(
           showSearchBox: true,
         ),
