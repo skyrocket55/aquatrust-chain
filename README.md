@@ -62,6 +62,17 @@ Check README files on all the folders. Setup in the following order:
 
 
 ##### Snapshots of Application Results #####
+> POST Donation: Org3 with Read Only Access
+![alt text](image-3.png)
 
+> POST Donation
+![alt text](image-4.png)
+
+![alt text](image-6.png)
+
+![alt text](image-7.png)
+
+> GET Donation
+![alt text](image-5.png)
 
 
