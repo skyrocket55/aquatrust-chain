@@ -3,7 +3,6 @@ const fs = require('fs');
 const path = require('path');
 const util = require('util');
 const { Wallets, Gateway } = require('fabric-network');
-const { log } = require('console');
 
 const app = express();
 const port = 3000;
@@ -74,11 +73,47 @@ async function addBlockListener() {
     });
 }
 
+// working code using identityLabel as header
+// app.post('/api/send-donation', async (req, res) => {
+//     let listener;
+//     try {
+//         const { functionName, args } = req.body;
+//         const identityLabel = req.headers['identitylabel'];
+//         const contract = await getContract(identityLabel);
+
+//         const response = await contract.submitTransaction(functionName, ...args);
+
+//         // Call block listener function after submitting transaction
+//         const { blockNumber } = await addBlockListener();
+        
+//         // Respond with the transaction ID and message
+//         res.status(200).json({ 
+//             message: 'Donation submitted successfully',
+//             blockNumber: blockNumber
+//         });
+//     } catch (error) {
+//         console.error(`Error processing transaction: ${error}`);
+//         if (error.message.includes('does not exist')) {
+//             res.status(404).json({ error: `Donation with ID ${donationId} does not exist` });
+//         } else if (error.message.includes('Unauthorized access')) {
+//             res.status(403).json({ error: 'You do not have permission to perform this action' });
+//         } else if (error.message.includes('No valid responses from any peers')) {
+//             res.status(500).json({ error: 'No valid responses from any peers. Unauthorized access - Org3MSP cannot write' });
+//         } else {
+//             res.status(500).json({ error: 'Failed to fetch donation' });
+//         }
+//     } finally {
+//         gateway.disconnect();
+//         if (listener) {
+//             listener.disconnect(); // Disconnect the block listener if it was successfully created
+//         }
+//     }
+// });
+
 app.post('/api/send-donation', async (req, res) => {
     let listener;
     try {
-        const { functionName, args } = req.body;
-        const identityLabel = req.headers['identitylabel'];
+        const { functionName, args, identityLabel } = req.body; // Get identityLabel from request body
         const contract = await getContract(identityLabel);
 
         const response = await contract.submitTransaction(functionName, ...args);
@@ -110,10 +145,33 @@ app.post('/api/send-donation', async (req, res) => {
     }
 });
 
+// working code using header
+// app.get('/api/query-donation/:donationId', async (req, res) => {
+//     const { donationId } = req.params;
+//     try {
+//         const identityLabel = req.headers['identitylabel'];
+//         const contract = await getContract(identityLabel);
+
+//         const response = await contract.evaluateTransaction('queryDonation', donationId);
+//         res.status(200).json({ message: 'Query executed successfully', transaction: JSON.parse(response.toString()) });
+//     } catch (error) {
+//         console.error(`Error processing transaction: ${error}`);
+//         if (error.message.includes('does not exist')) {
+//             res.status(404).json({ error: `Donation with ID ${donationId} does not exist` });
+//         } else if (error.message.includes('Unauthorized access')) {
+//             res.status(403).json({ error: 'You do not have permission to perform this action' });
+//         } else {
+//             res.status(500).json({ error: 'Failed to fetch donation' });
+//         }
+//     } finally {
+//         gateway.disconnect();
+//     }
+// });
+
 app.get('/api/query-donation/:donationId', async (req, res) => {
     const { donationId } = req.params;
     try {
-        const identityLabel = req.headers['identitylabel'];
+        const { identityLabel } = req.body; // Get identityLabel from request body
         const contract = await getContract(identityLabel);
 
         const response = await contract.evaluateTransaction('queryDonation', donationId);
