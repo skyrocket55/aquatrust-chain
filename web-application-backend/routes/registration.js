@@ -63,7 +63,7 @@ router.get('/recipients', async (req, res) => {
     // Destructure query parameters; Set default values to allow pagination if not added in client
     const { page = 1, size = 5 } = req.query;
     try {
-        const recipients = await recipientsModule.getRecipientsHistory(page, size);
+        const recipients = await recipientsModule.getRecipientsList(page, size);
         const responsePaginated = paginationUtil.getPaginatedData(recipients, page, size);
         res.status(200).json(responsePaginated);
         console.log(`${req.method} ${req.url}`);

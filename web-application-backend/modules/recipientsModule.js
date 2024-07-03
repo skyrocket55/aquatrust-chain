@@ -11,7 +11,7 @@ const paginationUtil = new PaginationUtil();
 class Recipients {
     // Get recipients list in DESC order
     // Optional params page and size - default values to allow pagination
-    async getRecipientsHistory(page, size) {
+    async getRecipientsList(page, size) {
         try {
             const { limit, offset } = paginationUtil.getPagination(page, size);
             const recipients = await RecipientsModel.findAndCountAll({

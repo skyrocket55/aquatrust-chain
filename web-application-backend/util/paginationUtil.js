@@ -1,11 +1,11 @@
 class PaginationUtil {
     // Get Transactions List with Pagination
     getPaginatedData = (data, page, limit) => {
-        const { count: totalItems, rows: transactions } = data;
+        const { count: totalItems, rows: list } = data;
         const currentPage = page ? +page : 1; // default page 1
         const totalPages = Math.ceil(totalItems / limit);
     
-        return { totalItems, transactions, totalPages, currentPage };
+        return { totalItems, list, totalPages, currentPage };
     };
 
     // Paging params with default values if client did not specify params

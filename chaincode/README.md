@@ -7,7 +7,7 @@
 
 ##### Setup #####
 1. Bring down the network
-> ./network.sh down.
+> ./network.sh down
 
 2. Bring up the network,  create MSP with CAs  and channel. Use couchDB as state DB.
 > ./network.sh up createChannel -ca -c mychannel -s couchdb
