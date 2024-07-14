@@ -3,13 +3,21 @@
 const fs = require('fs');
 const path = require('path');
 const { Wallets } = require('fabric-network');
+const { Storage } = require('@google-cloud/storage');
 
-const testNetworkRoot = path.resolve(require('os').homedir(), 'hyperledger-fabric/fabric-samples/test-network');
+const bucketName = 'k8s-fabric';
+const testNetworkRoot = 'organizations';
+const serviceAccountKeyFile = '/usr/src/gateway/ciel-428616-38cb8c70eb10.json';
 
 async function main() {
 
     try {
+        console.log('Initializing wallet...');
         const wallet = await Wallets.newFileSystemWallet('./wallet');
+        // Initialize Storage with serviceAccountKeyFile
+        const storage = new Storage({
+            keyFilename: serviceAccountKeyFile,
+        });
         
         const predefinedOrgs = [
             {
@@ -28,18 +36,26 @@ async function main() {
         ];
 
         for (const org of predefinedOrgs) {
-            const credPath = path.join(testNetworkRoot, '/organizations/peerOrganizations/', org.name, '/users');
-            
+            const credPath = path.join(testNetworkRoot, 'peerOrganizations', org.name, '/users');
+            console.log('credPath: ', credPath);
             for (const user of org.users) {
                 const mspFolderPath = path.join(credPath, `${user}@${org.name}`, '/msp');
-                
-                // expecting only one cert file and one key file to be in the directories
-                const certFile = path.join(mspFolderPath, '/signcerts/', fs.readdirSync(path.join(mspFolderPath, '/signcerts'))[0]);
-                const keyFile = path.join(mspFolderPath, '/keystore/', fs.readdirSync(path.join(mspFolderPath, '/keystore'))[0]);
-
-                const cert = fs.readFileSync(certFile).toString();
-                const key = fs.readFileSync(keyFile).toString();
-
+                console.log('mspFolderPath: ', mspFolderPath);
+                // Read certificate file from GCS
+                const [certFiles] = await storage.bucket(bucketName).getFiles({ prefix: path.join(mspFolderPath, '/signcerts') });
+                if (!certFiles.length) {
+                    throw new Error(`No certificate files found in ${path.join(mspFolderPath, '/signcerts')}`);
+                }
+                const certFile = certFiles[0];
+                const certContents = await certFile.download();
+                const cert = certContents.toString();
+                console.log('cert: ', cert);
+                // Read key file from GCS
+                const [keyFiles] = await storage.bucket(bucketName).getFiles({ prefix: path.join(mspFolderPath, '/keystore') });
+                const keyFile = keyFiles[0];
+                const keyContents = await keyFile.download();
+                const key = keyContents.toString();
+                console.log('key: ', key);
                 const identity = {
                     credentials: {
                         certificate: cert,

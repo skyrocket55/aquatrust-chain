@@ -1,0 +1,386 @@
+Listing /tmp/scripts before chmod
+total 60
+-rw-r--r-- 1 root root  1958 Jul 10 17:56 ccp.sh
+-rw-r--r-- 1 root root   268 Jul 10 17:56 createAppChannel.sh
+-rw-r--r-- 1 root root  1171 Jul 10 17:56 createChannel.sh
+-rw-r--r-- 1 root root   160 Jul 10 17:56 createGenesis.sh
+-rw-r--r-- 1 root root 14813 Jul 10 17:56 orderer-certs.sh
+-rw-r--r-- 1 root root  4324 Jul 10 17:56 org1-certs.sh
+-rw-r--r-- 1 root root  4308 Jul 10 17:56 org2-certs.sh
+-rw-r--r-- 1 root root  4305 Jul 10 17:56 org3-certs.sh
+-rw-r--r-- 1 root root   159 Jul 10 17:56 updateAnchorPeer.sh
+Changing permissions of individual files in /tmp/scripts
+Listing /tmp/scripts after chmod
+total 60
+-rw-r--r-- 1 root root  1958 Jul 10 17:56 ccp.sh
+-rw-r--r-- 1 root root   268 Jul 10 17:56 createAppChannel.sh
+-rw-r--r-- 1 root root  1171 Jul 10 17:56 createChannel.sh
+-rw-r--r-- 1 root root   160 Jul 10 17:56 createGenesis.sh
+-rwxrwxrwx 1 root root 14813 Jul 10 17:56 orderer-certs.sh
+-rwxrwxrwx 1 root root  4324 Jul 10 17:56 org1-certs.sh
+-rwxrwxrwx 1 root root  4308 Jul 10 17:56 org2-certs.sh
+-rwxrwxrwx 1 root root  4305 Jul 10 17:56 org3-certs.sh
+-rw-r--r-- 1 root root   159 Jul 10 17:56 updateAnchorPeer.sh
++ fabric-ca-client enroll -u https://admin:adminpw@ca-orderer:10054 --caname ca-orderer --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+/organizations/ordererOrganizations/example.com
+2024/07/10 17:56:40 [INFO] Created a default configuration file at /organizations/ordererOrganizations/example.com/fabric-ca-client-config.yaml
+2024/07/10 17:56:41 [INFO] TLS Enabled
+2024/07/10 17:56:42 [INFO] generating key: &{A:ecdsa S:256}
+2024/07/10 17:56:42 [INFO] encoded CSR
+Error: POST failure of request: POST https://ca-orderer:10054/enroll
+{"hosts":["create-certs-7s6wk"],"certificate_request":"-----BEGIN CERTIFICATE REQUEST-----\nMIIBSDCB7wIBADBdMQswCQYDVQQGEwJVUzEXMBUGA1UECBMOTm9ydGggQ2Fyb2xp\nbmExFDASBgNVBAoTC0h5cGVybGVkZ2VyMQ8wDQYDVQQLEwZGYWJyaWMxDjAMBgNV\nBAMTBWFkbWluMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE5wPcqGV5bNpXOuGx\nfIBxaSVlOLzDyHL4onRfazWkPU/dMck8P2qG67Kz7L9or1nt+9LolzL683D0LhXv\nOD3UlKAwMC4GCSqGSIb3DQEJDjEhMB8wHQYDVR0RBBYwFIISY3JlYXRlLWNlcnRz\nLTdzNndrMAoGCCqGSM49BAMCA0gAMEUCIQDENhNaqfqGZIflcxz7vGqL3i5fSG3v\nNDjWyPMeIEZ8WQIgdDyugvtpm/Aoi3MxWzPqWcwG6bHtR3dfIUhUqok4Wno=\n-----END CERTIFICATE REQUEST-----\n","profile":"","crl_override":"","label":"","NotBefore":"0001-01-01T00:00:00Z","NotAfter":"0001-01-01T00:00:00Z","CAName":"ca-orderer"}: Post https://ca-orderer:10054/enroll: x509: certificate is valid for ca-orderer-5bb56f9db8-b5n2s, localhost, not ca-orderer
+Register orderer
++ fabric-ca-client register --caname ca-orderer --id.name orderer --id.secret ordererpw --id.type orderer --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+2024/07/10 17:56:42 [INFO] Configuration file location: /organizations/ordererOrganizations/example.com/fabric-ca-client-config.yaml
+2024/07/10 17:56:42 [INFO] TLS Enabled
+2024/07/10 17:56:43 [ERROR] Enrollment check failed: Idemix enrollment information does not exist
+Error: Enrollment information does not exist. Please execute enroll command first. Example: fabric-ca-client enroll -u http://user:userpw@serverAddr:serverPort
+Register orderer2
++ fabric-ca-client register --caname ca-orderer --id.name orderer2 --id.secret ordererpw --id.type orderer --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+2024/07/10 17:56:43 [INFO] Configuration file location: /organizations/ordererOrganizations/example.com/fabric-ca-client-config.yaml
+2024/07/10 17:56:43 [INFO] TLS Enabled
+2024/07/10 17:56:43 [ERROR] Enrollment check failed: Idemix enrollment information does not exist
+Error: Enrollment information does not exist. Please execute enroll command first. Example: fabric-ca-client enroll -u http://user:userpw@serverAddr:serverPort
+Register orderer3
++ fabric-ca-client register --caname ca-orderer --id.name orderer3 --id.secret ordererpw --id.type orderer --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+2024/07/10 17:56:43 [INFO] Configuration file location: /organizations/ordererOrganizations/example.com/fabric-ca-client-config.yaml
+2024/07/10 17:56:43 [INFO] TLS Enabled
+2024/07/10 17:56:43 [ERROR] Enrollment check failed: Idemix enrollment information does not exist
+Error: Enrollment information does not exist. Please execute enroll command first. Example: fabric-ca-client enroll -u http://user:userpw@serverAddr:serverPort
+Register orderer4
++ fabric-ca-client register --caname ca-orderer --id.name orderer4 --id.secret ordererpw --id.type orderer --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+2024/07/10 17:56:43 [INFO] Configuration file location: /organizations/ordererOrganizations/example.com/fabric-ca-client-config.yaml
+2024/07/10 17:56:43 [INFO] TLS Enabled
+2024/07/10 17:56:43 [ERROR] Enrollment check failed: Idemix enrollment information does not exist
+Error: Enrollment information does not exist. Please execute enroll command first. Example: fabric-ca-client enroll -u http://user:userpw@serverAddr:serverPort
+Register orderer5
++ fabric-ca-client register --caname ca-orderer --id.name orderer5 --id.secret ordererpw --id.type orderer --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+2024/07/10 17:56:43 [INFO] Configuration file location: /organizations/ordererOrganizations/example.com/fabric-ca-client-config.yaml
+2024/07/10 17:56:43 [INFO] TLS Enabled
+2024/07/10 17:56:43 [ERROR] Enrollment check failed: Idemix enrollment information does not exist
+Error: Enrollment information does not exist. Please execute enroll command first. Example: fabric-ca-client enroll -u http://user:userpw@serverAddr:serverPort
+Register the orderer admin
++ fabric-ca-client register --caname ca-orderer --id.name ordererAdmin --id.secret ordererAdminpw --id.type admin --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+2024/07/10 17:56:43 [INFO] Configuration file location: /organizations/ordererOrganizations/example.com/fabric-ca-client-config.yaml
+2024/07/10 17:56:43 [INFO] TLS Enabled
+2024/07/10 17:56:43 [ERROR] Enrollment check failed: Idemix enrollment information does not exist
+Error: Enrollment information does not exist. Please execute enroll command first. Example: fabric-ca-client enroll -u http://user:userpw@serverAddr:serverPort
+Generate the orderer msp
++ fabric-ca-client enroll -u https://orderer:ordererpw@ca-orderer:10054 --caname ca-orderer -M /organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp --csr.hosts orderer.example.com --csr.hosts localhost --csr.hosts ca-orderer --csr.hosts orderer --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+2024/07/10 17:56:44 [INFO] TLS Enabled
+2024/07/10 17:56:44 [INFO] generating key: &{A:ecdsa S:256}
+2024/07/10 17:56:45 [INFO] encoded CSR
+Error: POST failure of request: POST https://ca-orderer:10054/enroll
+{"hosts":["orderer.example.com","localhost","ca-orderer","orderer"],"certificate_request":"-----BEGIN CERTIFICATE REQUEST-----\nMIIBbDCCARICAQAwXzELMAkGA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9s\naW5hMRQwEgYDVQQKEwtIeXBlcmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRAwDgYD\nVQQDEwdvcmRlcmVyMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEr8yPC6EMCMw4\na+eWxUDd8kHPQZB9qakcdNymvRcSSzF+hK7ErUSNFB8/2rNo9fwwe1+i6QH7GGUe\nl9RwSdgByKBRME8GCSqGSIb3DQEJDjFCMEAwPgYDVR0RBDcwNYITb3JkZXJlci5l\neGFtcGxlLmNvbYIJbG9jYWxob3N0ggpjYS1vcmRlcmVyggdvcmRlcmVyMAoGCCqG\nSM49BAMCA0gAMEUCIQDMahIvZ+ZEzxv6arfrsFIldXFZgRAuAmU28XOQsDM+/wIg\ncL7HlnMyEXl1MZumealUlXMjJmNpLNsQvXmLdd2dS8I=\n-----END CERTIFICATE REQUEST-----\n","profile":"","crl_override":"","label":"","NotBefore":"0001-01-01T00:00:00Z","NotAfter":"0001-01-01T00:00:00Z","CAName":"ca-orderer"}: Post https://ca-orderer:10054/enroll: x509: certificate is valid for ca-orderer-5bb56f9db8-b5n2s, localhost, not ca-orderer
+Generate the orderer-tls certificates
++ fabric-ca-client enroll -u https://orderer:ordererpw@ca-orderer:10054 --caname ca-orderer -M /organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls --enrollment.profile tls --csr.hosts orderer.example.com --csr.hosts localhost --csr.hosts ca-orderer --csr.hosts orderer --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+2024/07/10 17:56:46 [INFO] TLS Enabled
+2024/07/10 17:56:46 [INFO] generating key: &{A:ecdsa S:256}
+2024/07/10 17:56:46 [INFO] encoded CSR
+Error: POST failure of request: POST https://ca-orderer:10054/enroll
+{"hosts":["orderer.example.com","localhost","ca-orderer","orderer"],"certificate_request":"-----BEGIN CERTIFICATE REQUEST-----\nMIIBbDCCARICAQAwXzELMAkGA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9s\naW5hMRQwEgYDVQQKEwtIeXBlcmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRAwDgYD\nVQQDEwdvcmRlcmVyMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEoVHYLLo01KVo\nFPcF8vb8c0VI+x/EMs18TOTkQ40EakLdqj4bRufzPhD+F8ao3CKaEEah6nncyclb\nmv0pIyDJVqBRME8GCSqGSIb3DQEJDjFCMEAwPgYDVR0RBDcwNYITb3JkZXJlci5l\neGFtcGxlLmNvbYIJbG9jYWxob3N0ggpjYS1vcmRlcmVyggdvcmRlcmVyMAoGCCqG\nSM49BAMCA0gAMEUCIQDR3QZN034f2MOwi4/1WnXGbnEDexkkEsYXLdR3rt5wbgIg\nS+brsIw1XRQ/JYpch2IpN4fF58DtYzzClP3AAx7dz9c=\n-----END CERTIFICATE REQUEST-----\n","profile":"tls","crl_override":"","label":"","NotBefore":"0001-01-01T00:00:00Z","NotAfter":"0001-01-01T00:00:00Z","CAName":"ca-orderer"}: Post https://ca-orderer:10054/enroll: x509: certificate is valid for ca-orderer-5bb56f9db8-b5n2s, localhost, not ca-orderer
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/tlscacerts/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/signcerts/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/tlscacerts/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/tlscacerts/*': No such file or directory
+Generate the orderer2 msp
++ fabric-ca-client enroll -u https://orderer:ordererpw@ca-orderer:10054 --caname ca-orderer -M /organizations/ordererOrganizations/example.com/orderers/orderer2.example.com/msp --csr.hosts orderer2.example.com --csr.hosts localhost --csr.hosts ca-orderer --csr.hosts orderer2 --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+2024/07/10 17:56:48 [INFO] TLS Enabled
+2024/07/10 17:56:48 [INFO] generating key: &{A:ecdsa S:256}
+2024/07/10 17:56:48 [INFO] encoded CSR
+Error: POST failure of request: POST https://ca-orderer:10054/enroll
+{"hosts":["orderer2.example.com","localhost","ca-orderer","orderer2"],"certificate_request":"-----BEGIN CERTIFICATE REQUEST-----\nMIIBbTCCARQCAQAwXzELMAkGA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9s\naW5hMRQwEgYDVQQKEwtIeXBlcmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRAwDgYD\nVQQDEwdvcmRlcmVyMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEMS0YVmqqCc0c\nffE9rWoY8CC/q0Cy8j1qKXNERi5UzQdbAZm569xMgnr5ldITLfLcoKCEmfzNlG52\nE2tsi7F/EaBTMFEGCSqGSIb3DQEJDjFEMEIwQAYDVR0RBDkwN4IUb3JkZXJlcjIu\nZXhhbXBsZS5jb22CCWxvY2FsaG9zdIIKY2Etb3JkZXJlcoIIb3JkZXJlcjIwCgYI\nKoZIzj0EAwIDRwAwRAIgTtpIdHeTvr3WIXDnMufNX4Xf9Tw4SLgKnpJeKloRSP4C\nIDrrnLAlYrFfqA5o2Ojuqp7Msv0FiWDMWzJ0sJr1v4l6\n-----END CERTIFICATE REQUEST-----\n","profile":"","crl_override":"","label":"","NotBefore":"0001-01-01T00:00:00Z","NotAfter":"0001-01-01T00:00:00Z","CAName":"ca-orderer"}: Post https://ca-orderer:10054/enroll: x509: certificate is valid for ca-orderer-5bb56f9db8-b5n2s, localhost, not ca-orderer
+Generate the orderer2-tls certificates
++ fabric-ca-client enroll -u https://orderer:ordererpw@ca-orderer:10054 --caname ca-orderer -M /organizations/ordererOrganizations/example.com/orderers/orderer2.example.com/tls --enrollment.profile tls --csr.hosts orderer2.example.com --csr.hosts localhost --csr.hosts ca-orderer2 --csr.hosts orderer2 --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+2024/07/10 17:56:50 [INFO] TLS Enabled
+2024/07/10 17:56:50 [INFO] generating key: &{A:ecdsa S:256}
+2024/07/10 17:56:50 [INFO] encoded CSR
+Error: POST failure of request: POST https://ca-orderer:10054/enroll
+{"hosts":["orderer2.example.com","localhost","ca-orderer2","orderer2"],"certificate_request":"-----BEGIN CERTIFICATE REQUEST-----\nMIIBbjCCARUCAQAwXzELMAkGA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9s\naW5hMRQwEgYDVQQKEwtIeXBlcmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRAwDgYD\nVQQDEwdvcmRlcmVyMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEL5+kelJzZAj1\nSPyaGEzaptLjCRGcsPlx1QJ/kFuS2hKGNrC7cFpgMF/kOyJAzADf5VwfioCm63/Y\nPltnf5BzzqBUMFIGCSqGSIb3DQEJDjFFMEMwQQYDVR0RBDowOIIUb3JkZXJlcjIu\nZXhhbXBsZS5jb22CCWxvY2FsaG9zdIILY2Etb3JkZXJlcjKCCG9yZGVyZXIyMAoG\nCCqGSM49BAMCA0cAMEQCIFagIHFoDxopAFrmDKHDyKbJtDjWC1ZRSFKvCaaB1IXJ\nAiB/EN7jQvAZPKXogsdqqrt9QpOODFUsuMSHtXUkKCLvyg==\n-----END CERTIFICATE REQUEST-----\n","profile":"tls","crl_override":"","label":"","NotBefore":"0001-01-01T00:00:00Z","NotAfter":"0001-01-01T00:00:00Z","CAName":"ca-orderer"}: Post https://ca-orderer:10054/enroll: x509: certificate is valid for ca-orderer-5bb56f9db8-b5n2s, localhost, not ca-orderer
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer2.example.com/tls/tlscacerts/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer2.example.com/tls/signcerts/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer2.example.com/tls/tlscacerts/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer2.example.com/tls/tlscacerts/*': No such file or directory
+Generate the orderer3 msp
++ fabric-ca-client enroll -u https://orderer:ordererpw@ca-orderer:10054 --caname ca-orderer -M /organizations/ordererOrganizations/example.com/orderers/orderer3.example.com/msp --csr.hosts orderer3.example.com --csr.hosts localhost --csr.hosts ca-orderer --csr.hosts orderer3 --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+2024/07/10 17:56:52 [INFO] TLS Enabled
+2024/07/10 17:56:52 [INFO] generating key: &{A:ecdsa S:256}
+2024/07/10 17:56:52 [INFO] encoded CSR
+Error: POST failure of request: POST https://ca-orderer:10054/enroll
+{"hosts":["orderer3.example.com","localhost","ca-orderer","orderer3"],"certificate_request":"-----BEGIN CERTIFICATE REQUEST-----\nMIIBbjCCARQCAQAwXzELMAkGA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9s\naW5hMRQwEgYDVQQKEwtIeXBlcmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRAwDgYD\nVQQDEwdvcmRlcmVyMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEaSCWe/lIYoAG\n8lH6C8nwumk5BWAJaib+yyCY71uJbY71h7/hiPO9g2tgAD3Gd9OH9q2Od/1HmIET\nUtyutwZGhqBTMFEGCSqGSIb3DQEJDjFEMEIwQAYDVR0RBDkwN4IUb3JkZXJlcjMu\nZXhhbXBsZS5jb22CCWxvY2FsaG9zdIIKY2Etb3JkZXJlcoIIb3JkZXJlcjMwCgYI\nKoZIzj0EAwIDSAAwRQIhAIicrQ+z81xLo9Dtped0Po/NY36+rnpwbDc7gAzkwlWA\nAiADDBDvn/qfk7uaSAHeZgTRY2vYif2Dn1qwYOlg8MtYxg==\n-----END CERTIFICATE REQUEST-----\n","profile":"","crl_override":"","label":"","NotBefore":"0001-01-01T00:00:00Z","NotAfter":"0001-01-01T00:00:00Z","CAName":"ca-orderer"}: Post https://ca-orderer:10054/enroll: x509: certificate is valid for ca-orderer-5bb56f9db8-b5n2s, localhost, not ca-orderer
++ fabric-ca-client enroll -u https://orderer:ordererpw@ca-orderer:10054 --caname ca-orderer -M /organizations/ordererOrganizations/example.com/orderers/orderer3.example.com/tls --enrollment.profile tls --csr.hosts orderer3.example.com --csr.hosts localhost --csr.hosts ca-orderer --csr.hosts orderer3 --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+Generate the orderer3-tls certificates
+2024/07/10 17:56:53 [INFO] TLS Enabled
+2024/07/10 17:56:53 [INFO] generating key: &{A:ecdsa S:256}
+2024/07/10 17:56:53 [INFO] encoded CSR
+Error: POST failure of request: POST https://ca-orderer:10054/enroll
+{"hosts":["orderer3.example.com","localhost","ca-orderer","orderer3"],"certificate_request":"-----BEGIN CERTIFICATE REQUEST-----\nMIIBbjCCARQCAQAwXzELMAkGA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9s\naW5hMRQwEgYDVQQKEwtIeXBlcmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRAwDgYD\nVQQDEwdvcmRlcmVyMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAET5iJJ5GJaK+g\nQKK4CByAxd6IPFlLF9jsWO4MuX5Oj+YKWTN/DfCXMEel8NR5Jz64doZpLvJzCUCi\n/W8jayV4t6BTMFEGCSqGSIb3DQEJDjFEMEIwQAYDVR0RBDkwN4IUb3JkZXJlcjMu\nZXhhbXBsZS5jb22CCWxvY2FsaG9zdIIKY2Etb3JkZXJlcoIIb3JkZXJlcjMwCgYI\nKoZIzj0EAwIDSAAwRQIhALzgem7LMVoVOdLlfpvCQmKM3OHSkBpsWKVSzuD3Uy1F\nAiB/Y8S8tFom2jKU0rEufQcAa2EdP3jxPOa5/p+sDmejHw==\n-----END CERTIFICATE REQUEST-----\n","profile":"tls","crl_override":"","label":"","NotBefore":"0001-01-01T00:00:00Z","NotAfter":"0001-01-01T00:00:00Z","CAName":"ca-orderer"}: Post https://ca-orderer:10054/enroll: x509: certificate is valid for ca-orderer-5bb56f9db8-b5n2s, localhost, not ca-orderer
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer3.example.com/tls/tlscacerts/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer3.example.com/tls/signcerts/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer3.example.com/tls/tlscacerts/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer3.example.com/tls/tlscacerts/*': No such file or directory
+Generate the orderer4 msp
++ fabric-ca-client enroll -u https://orderer:ordererpw@ca-orderer:10054 --caname ca-orderer -M /organizations/ordererOrganizations/example.com/orderers/orderer4.example.com/msp --csr.hosts orderer4.example.com --csr.hosts localhost --csr.hosts ca-orderer --csr.hosts orderer4 --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+2024/07/10 17:56:55 [INFO] TLS Enabled
+2024/07/10 17:56:55 [INFO] generating key: &{A:ecdsa S:256}
+2024/07/10 17:56:55 [INFO] encoded CSR
+Error: POST failure of request: POST https://ca-orderer:10054/enroll
+{"hosts":["orderer4.example.com","localhost","ca-orderer","orderer4"],"certificate_request":"-----BEGIN CERTIFICATE REQUEST-----\nMIIBbjCCARQCAQAwXzELMAkGA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9s\naW5hMRQwEgYDVQQKEwtIeXBlcmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRAwDgYD\nVQQDEwdvcmRlcmVyMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEMNFswXUpXIUP\nMoUWWo3Vfhw9UxYlI0/ud/qwMqKRNZhO01Gl5VbT6rvU1S4R58lwB1yjDF8o7xwf\nuKbbDRUfkKBTMFEGCSqGSIb3DQEJDjFEMEIwQAYDVR0RBDkwN4IUb3JkZXJlcjQu\nZXhhbXBsZS5jb22CCWxvY2FsaG9zdIIKY2Etb3JkZXJlcoIIb3JkZXJlcjQwCgYI\nKoZIzj0EAwIDSAAwRQIhAIN7N14dm/VQATdh+WgWOrg5I0iS4X+AV52v8jpXrUPz\nAiAIq2CHUctVwxBNlz3Qq4lANnjdcKhB/6te/k8diT6Nvw==\n-----END CERTIFICATE REQUEST-----\n","profile":"","crl_override":"","label":"","NotBefore":"0001-01-01T00:00:00Z","NotAfter":"0001-01-01T00:00:00Z","CAName":"ca-orderer"}: Post https://ca-orderer:10054/enroll: x509: certificate is valid for ca-orderer-5bb56f9db8-b5n2s, localhost, not ca-orderer
+Generate the orderer4-tls certificates
++ fabric-ca-client enroll -u https://orderer:ordererpw@ca-orderer:10054 --caname ca-orderer -M /organizations/ordererOrganizations/example.com/orderers/orderer4.example.com/tls --enrollment.profile tls --csr.hosts orderer4.example.com --csr.hosts localhost --csr.hosts ca-orderer4 --csr.hosts orderer4 --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+2024/07/10 17:56:56 [INFO] TLS Enabled
+2024/07/10 17:56:56 [INFO] generating key: &{A:ecdsa S:256}
+2024/07/10 17:56:56 [INFO] encoded CSR
+Error: POST failure of request: POST https://ca-orderer:10054/enroll
+{"hosts":["orderer4.example.com","localhost","ca-orderer4","orderer4"],"certificate_request":"-----BEGIN CERTIFICATE REQUEST-----\nMIIBbjCCARUCAQAwXzELMAkGA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9s\naW5hMRQwEgYDVQQKEwtIeXBlcmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRAwDgYD\nVQQDEwdvcmRlcmVyMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEUChhg8cixexv\n3MwNxxnbSiJySm0/VIAOQdqqV+ZuOe376oQyJi/h6vRYaruv25Fnum+xOODgZnvt\n32x7BuFzn6BUMFIGCSqGSIb3DQEJDjFFMEMwQQYDVR0RBDowOIIUb3JkZXJlcjQu\nZXhhbXBsZS5jb22CCWxvY2FsaG9zdIILY2Etb3JkZXJlcjSCCG9yZGVyZXI0MAoG\nCCqGSM49BAMCA0cAMEQCID/lVvPPN4LMQb8w+jexeqiKMsD8+f/OyCBbXElnVT09\nAiAZkex6R/dSnXet5K8p88225KzHtx3SKrZ+kOJ5xjsgYw==\n-----END CERTIFICATE REQUEST-----\n","profile":"tls","crl_override":"","label":"","NotBefore":"0001-01-01T00:00:00Z","NotAfter":"0001-01-01T00:00:00Z","CAName":"ca-orderer"}: Post https://ca-orderer:10054/enroll: x509: certificate is valid for ca-orderer-5bb56f9db8-b5n2s, localhost, not ca-orderer
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer4.example.com/tls/tlscacerts/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer4.example.com/tls/signcerts/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer4.example.com/tls/tlscacerts/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer4.example.com/tls/tlscacerts/*': No such file or directory
+Generate the orderer5 msp
++ fabric-ca-client enroll -u https://orderer:ordererpw@ca-orderer:10054 --caname ca-orderer -M /organizations/ordererOrganizations/example.com/orderers/orderer5.example.com/msp --csr.hosts orderer5.example.com --csr.hosts localhost --csr.hosts ca-orderer --csr.hosts orderer5 --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+2024/07/10 17:56:58 [INFO] TLS Enabled
+2024/07/10 17:56:58 [INFO] generating key: &{A:ecdsa S:256}
+2024/07/10 17:56:58 [INFO] encoded CSR
+Error: POST failure of request: POST https://ca-orderer:10054/enroll
+{"hosts":["orderer5.example.com","localhost","ca-orderer","orderer5"],"certificate_request":"-----BEGIN CERTIFICATE REQUEST-----\nMIIBbjCCARQCAQAwXzELMAkGA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9s\naW5hMRQwEgYDVQQKEwtIeXBlcmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRAwDgYD\nVQQDEwdvcmRlcmVyMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEhT4rU4fosZ58\nsQRgrLSZB8W/L8H24Zv+JaaHo02e6iT6J2EL4Gq0zU87AJnUm9AHOBH3jtZUsir0\nBRB8hAwclqBTMFEGCSqGSIb3DQEJDjFEMEIwQAYDVR0RBDkwN4IUb3JkZXJlcjUu\nZXhhbXBsZS5jb22CCWxvY2FsaG9zdIIKY2Etb3JkZXJlcoIIb3JkZXJlcjUwCgYI\nKoZIzj0EAwIDSAAwRQIhAPq1/vM8VHwA+iKW2V2dmL7WRI+vwMQhS24NLZAAHmdp\nAiBgL9gKbA+jO8Jl9aGlW4No4Jbu5oYxqlGTlUrOsO/fpg==\n-----END CERTIFICATE REQUEST-----\n","profile":"","crl_override":"","label":"","NotBefore":"0001-01-01T00:00:00Z","NotAfter":"0001-01-01T00:00:00Z","CAName":"ca-orderer"}: Post https://ca-orderer:10054/enroll: x509: certificate is valid for ca-orderer-5bb56f9db8-b5n2s, localhost, not ca-orderer
++ fabric-ca-client enroll -u https://orderer:ordererpw@ca-orderer:10054 --caname ca-orderer -M /organizations/ordererOrganizations/example.com/orderers/orderer5.example.com/tls --enrollment.profile tls --csr.hosts orderer5.example.com --csr.hosts localhost --csr.hosts ca-orderer5 --csr.hosts orderer5 --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+Generate the orderer5-tls certificates
+2024/07/10 17:56:59 [INFO] TLS Enabled
+2024/07/10 17:56:59 [INFO] generating key: &{A:ecdsa S:256}
+2024/07/10 17:57:00 [INFO] encoded CSR
+Error: POST failure of request: POST https://ca-orderer:10054/enroll
+{"hosts":["orderer5.example.com","localhost","ca-orderer5","orderer5"],"certificate_request":"-----BEGIN CERTIFICATE REQUEST-----\nMIIBbjCCARUCAQAwXzELMAkGA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9s\naW5hMRQwEgYDVQQKEwtIeXBlcmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRAwDgYD\nVQQDEwdvcmRlcmVyMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEfQOMXm6ghFvN\nPUG6BTajQWo8nBgXdgQ2aY74S/By5C/cDVHjmyOhv79ha7Zt5xTJCSfG50mZ5zSG\nC/ILNk+xKaBUMFIGCSqGSIb3DQEJDjFFMEMwQQYDVR0RBDowOIIUb3JkZXJlcjUu\nZXhhbXBsZS5jb22CCWxvY2FsaG9zdIILY2Etb3JkZXJlcjWCCG9yZGVyZXI1MAoG\nCCqGSM49BAMCA0cAMEQCIH0TNCl8yo9MASG4v8+S+hYMDuj9i2fPpRvC2TlKNoHN\nAiBMDSuJ8RyUoLKghClaoGnmqjsQZ8lxOFq/aFwhOGwL4A==\n-----END CERTIFICATE REQUEST-----\n","profile":"tls","crl_override":"","label":"","NotBefore":"0001-01-01T00:00:00Z","NotAfter":"0001-01-01T00:00:00Z","CAName":"ca-orderer"}: Post https://ca-orderer:10054/enroll: x509: certificate is valid for ca-orderer-5bb56f9db8-b5n2s, localhost, not ca-orderer
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer5.example.com/tls/tlscacerts/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer5.example.com/tls/signcerts/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer5.example.com/tls/tlscacerts/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer5.example.com/tls/tlscacerts/*': No such file or directory
++ fabric-ca-client enroll -u https://ordererAdmin:ordererAdminpw@ca-orderer:10054 --caname ca-orderer -M /organizations/ordererOrganizations/example.com/users/Admin@example.com/msp --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+Generate the admin msp
+2024/07/10 17:57:01 [INFO] TLS Enabled
+2024/07/10 17:57:01 [INFO] generating key: &{A:ecdsa S:256}
+2024/07/10 17:57:01 [INFO] encoded CSR
+Error: POST failure of request: POST https://ca-orderer:10054/enroll
+{"hosts":["create-certs-7s6wk"],"certificate_request":"-----BEGIN CERTIFICATE REQUEST-----\nMIIBTjCB9gIBADBkMQswCQYDVQQGEwJVUzEXMBUGA1UECBMOTm9ydGggQ2Fyb2xp\nbmExFDASBgNVBAoTC0h5cGVybGVkZ2VyMQ8wDQYDVQQLEwZGYWJyaWMxFTATBgNV\nBAMTDG9yZGVyZXJBZG1pbjBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABE0o/uWi\nUSabr74KRiAqATKBJqZSlM6mXQMuoHz2SksQq/2Irerp/s+PmfeR6azfklgR4T9T\nW3R5re2AC4eZQv+gMDAuBgkqhkiG9w0BCQ4xITAfMB0GA1UdEQQWMBSCEmNyZWF0\nZS1jZXJ0cy03czZ3azAKBggqhkjOPQQDAgNHADBEAiBXJvXGpBM8yZV45BsH0Dme\nOI0KfinU9MoC7C8KJ68ucQIgILwcQu0+nlEYe38k8fW5SPB6+7y+Ruic3z3xCZOT\nq+0=\n-----END CERTIFICATE REQUEST-----\n","profile":"","crl_override":"","label":"","NotBefore":"0001-01-01T00:00:00Z","NotAfter":"0001-01-01T00:00:00Z","CAName":"ca-orderer"}: Post https://ca-orderer:10054/enroll: x509: certificate is valid for ca-orderer-5bb56f9db8-b5n2s, localhost, not ca-orderer
++ mkdir -p /organizations/peerOrganizations/org1.example.com/
++ export FABRIC_CA_CLIENT_HOME=/organizations/peerOrganizations/org1.example.com/
++ fabric-ca-client enroll -u https://admin:adminpw@ca-org1:7054 --caname ca-org1 --tls.certfiles /organizations/fabric-ca/org1/tls-cert.pem
+2024/07/10 17:57:02 [INFO] Created a default configuration file at /organizations/peerOrganizations/org1.example.com/fabric-ca-client-config.yaml
+2024/07/10 17:57:03 [INFO] TLS Enabled
+2024/07/10 17:57:03 [INFO] generating key: &{A:ecdsa S:256}
+2024/07/10 17:57:03 [INFO] encoded CSR
+2024/07/10 17:57:06 [INFO] Stored client certificate at /organizations/peerOrganizations/org1.example.com/msp/signcerts/cert.pem
+2024/07/10 17:57:06 [INFO] Stored root CA certificate at /organizations/peerOrganizations/org1.example.com/msp/cacerts/ca-org1-7054-ca-org1.pem
++ echo NodeOUs:
+  Enable: true
+  ClientOUIdentifier:
+    Certificate: cacerts/ca-org1-7054-ca-org1.pem
+    OrganizationalUnitIdentifier: client
+  PeerOUIdentifier:
+    Certificate: cacerts/ca-org1-7054-ca-org1.pem
+    OrganizationalUnitIdentifier: peer
+  AdminOUIdentifier:
+    Certificate: cacerts/ca-org1-7054-ca-org1.pem
+    OrganizationalUnitIdentifier: admin
+  OrdererOUIdentifier:
+    Certificate: cacerts/ca-org1-7054-ca-org1.pem
+    OrganizationalUnitIdentifier: orderer
++ fabric-ca-client register --caname ca-org1 --id.name peer0 --id.secret peer0pw --id.type peer --tls.certfiles /organizations/fabric-ca/org1/tls-cert.pem
+2024/07/10 17:57:07 [INFO] Configuration file location: /organizations/peerOrganizations/org1.example.com/fabric-ca-client-config.yaml
+2024/07/10 17:57:07 [INFO] TLS Enabled
+2024/07/10 17:57:07 [INFO] TLS Enabled
+Password: peer0pw
++ fabric-ca-client register --caname ca-org1 --id.name user1 --id.secret user1pw --id.type client --tls.certfiles /organizations/fabric-ca/org1/tls-cert.pem
+2024/07/10 17:57:08 [INFO] Configuration file location: /organizations/peerOrganizations/org1.example.com/fabric-ca-client-config.yaml
+2024/07/10 17:57:08 [INFO] TLS Enabled
+2024/07/10 17:57:08 [INFO] TLS Enabled
+Password: user1pw
++ fabric-ca-client register --caname ca-org1 --id.name org1admin --id.secret org1adminpw --id.type admin --tls.certfiles /organizations/fabric-ca/org1/tls-cert.pem
+2024/07/10 17:57:09 [INFO] Configuration file location: /organizations/peerOrganizations/org1.example.com/fabric-ca-client-config.yaml
+2024/07/10 17:57:09 [INFO] TLS Enabled
+2024/07/10 17:57:09 [INFO] TLS Enabled
+Password: org1adminpw
++ fabric-ca-client enroll -u https://peer0:peer0pw@ca-org1:7054 --caname ca-org1 -M /organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp --csr.hosts peer0.org1.example.com --csr.hosts peer0-org1 --tls.certfiles /organizations/fabric-ca/org1/tls-cert.pem
+2024/07/10 17:57:11 [INFO] TLS Enabled
+2024/07/10 17:57:11 [INFO] generating key: &{A:ecdsa S:256}
+2024/07/10 17:57:11 [INFO] encoded CSR
+2024/07/10 17:57:14 [INFO] Stored client certificate at /organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp/signcerts/cert.pem
+2024/07/10 17:57:14 [INFO] Stored root CA certificate at /organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp/cacerts/ca-org1-7054-ca-org1.pem
++ cp /organizations/peerOrganizations/org1.example.com/msp/config.yaml /organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp/config.yaml
++ fabric-ca-client enroll -u https://peer0:peer0pw@ca-org1:7054 --caname ca-org1 -M /organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls --enrollment.profile tls --csr.hosts peer0.org1.example.com --csr.hosts peer0-org1 --csr.hosts ca-org1 --csr.hosts localhost --tls.certfiles /organizations/fabric-ca/org1/tls-cert.pem
+2024/07/10 17:57:15 [INFO] TLS Enabled
+2024/07/10 17:57:15 [INFO] generating key: &{A:ecdsa S:256}
+2024/07/10 17:57:15 [INFO] encoded CSR
+2024/07/10 17:57:17 [INFO] Stored client certificate at /organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/signcerts/cert.pem
+2024/07/10 17:57:17 [INFO] Stored TLS root CA certificate at /organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/tlscacerts/tls-ca-org1-7054-ca-org1.pem
++ cp /organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/tlscacerts/tls-ca-org1-7054-ca-org1.pem /organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
++ cp /organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/signcerts/cert.pem /organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/server.crt
++ cp /organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/keystore/c5735e626d54726d696c8ff6a1a3c19481aca62d300d264c7cb5ae0a543cbe23_sk /organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/server.key
++ mkdir -p /organizations/peerOrganizations/org1.example.com/msp/tlscacerts
++ cp /organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/tlscacerts/tls-ca-org1-7054-ca-org1.pem /organizations/peerOrganizations/org1.example.com/msp/tlscacerts/ca.crt
++ mkdir -p /organizations/peerOrganizations/org1.example.com/tlsca
++ cp /organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/tlscacerts/tls-ca-org1-7054-ca-org1.pem /organizations/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
++ mkdir -p /organizations/peerOrganizations/org1.example.com/ca
++ cp /organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp/cacerts/ca-org1-7054-ca-org1.pem /organizations/peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem
++ fabric-ca-client enroll -u https://user1:user1pw@ca-org1:7054 --caname ca-org1 -M /organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp --tls.certfiles /organizations/fabric-ca/org1/tls-cert.pem
+2024/07/10 17:57:21 [INFO] TLS Enabled
+2024/07/10 17:57:21 [INFO] generating key: &{A:ecdsa S:256}
+2024/07/10 17:57:21 [INFO] encoded CSR
+2024/07/10 17:57:23 [INFO] Stored client certificate at /organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/cert.pem
+2024/07/10 17:57:23 [INFO] Stored root CA certificate at /organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/cacerts/ca-org1-7054-ca-org1.pem
++ cp /organizations/peerOrganizations/org1.example.com/msp/config.yaml /organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/config.yaml
++ fabric-ca-client enroll -u https://org1admin:org1adminpw@ca-org1:7054 --caname ca-org1 -M /organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp --tls.certfiles /organizations/fabric-ca/org1/tls-cert.pem
+2024/07/10 17:57:24 [INFO] TLS Enabled
+2024/07/10 17:57:24 [INFO] generating key: &{A:ecdsa S:256}
+2024/07/10 17:57:25 [INFO] encoded CSR
+2024/07/10 17:57:27 [INFO] Stored client certificate at /organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/signcerts/cert.pem
+2024/07/10 17:57:27 [INFO] Stored root CA certificate at /organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/cacerts/ca-org1-7054-ca-org1.pem
++ cp /organizations/peerOrganizations/org1.example.com/msp/config.yaml /organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/config.yaml
++ mkdir -p /organizations/peerOrganizations/org2.example.com/
++ export FABRIC_CA_CLIENT_HOME=/organizations/peerOrganizations/org2.example.com/
++ fabric-ca-client enroll -u https://admin:adminpw@ca-org2:8054 --caname ca-org2 --tls.certfiles /organizations/fabric-ca/org2/tls-cert.pem
+2024/07/10 17:57:27 [INFO] Created a default configuration file at /organizations/peerOrganizations/org2.example.com/fabric-ca-client-config.yaml
+2024/07/10 17:57:28 [INFO] TLS Enabled
+2024/07/10 17:57:28 [INFO] generating key: &{A:ecdsa S:256}
+2024/07/10 17:57:29 [INFO] encoded CSR
+2024/07/10 17:57:31 [INFO] Stored client certificate at /organizations/peerOrganizations/org2.example.com/msp/signcerts/cert.pem
+2024/07/10 17:57:31 [INFO] Stored root CA certificate at /organizations/peerOrganizations/org2.example.com/msp/cacerts/ca-org2-8054-ca-org2.pem
++ echo NodeOUs:
+  Enable: true
+  ClientOUIdentifier:
+    Certificate: cacerts/ca-org2-8054-ca-org2.pem
+    OrganizationalUnitIdentifier: client
+  PeerOUIdentifier:
+    Certificate: cacerts/ca-org2-8054-ca-org2.pem
+    OrganizationalUnitIdentifier: peer
+  AdminOUIdentifier:
+    Certificate: cacerts/ca-org2-8054-ca-org2.pem
+    OrganizationalUnitIdentifier: admin
+  OrdererOUIdentifier:
+    Certificate: cacerts/ca-org2-8054-ca-org2.pem
+    OrganizationalUnitIdentifier: orderer
++ fabric-ca-client register --caname ca-org2 --id.name peer0 --id.secret peer0pw --id.type peer --tls.certfiles /organizations/fabric-ca/org2/tls-cert.pem
+2024/07/10 17:57:32 [INFO] Configuration file location: /organizations/peerOrganizations/org2.example.com/fabric-ca-client-config.yaml
+2024/07/10 17:57:32 [INFO] TLS Enabled
+2024/07/10 17:57:32 [INFO] TLS Enabled
+Password: peer0pw
++ fabric-ca-client register --caname ca-org2 --id.name user1 --id.secret user1pw --id.type client --tls.certfiles /organizations/fabric-ca/org2/tls-cert.pem
+2024/07/10 17:57:33 [INFO] Configuration file location: /organizations/peerOrganizations/org2.example.com/fabric-ca-client-config.yaml
+2024/07/10 17:57:33 [INFO] TLS Enabled
+2024/07/10 17:57:33 [INFO] TLS Enabled
+Password: user1pw
++ fabric-ca-client register --caname ca-org2 --id.name org2admin --id.secret org2adminpw --id.type admin --tls.certfiles /organizations/fabric-ca/org2/tls-cert.pem
+2024/07/10 17:57:34 [INFO] Configuration file location: /organizations/peerOrganizations/org2.example.com/fabric-ca-client-config.yaml
+2024/07/10 17:57:34 [INFO] TLS Enabled
+2024/07/10 17:57:34 [INFO] TLS Enabled
+Password: org2adminpw
++ fabric-ca-client enroll -u https://peer0:peer0pw@ca-org2:8054 --caname ca-org2 -M /organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/msp --csr.hosts peer0.org2.example.com --csr.hosts peer0-org2 --tls.certfiles /organizations/fabric-ca/org2/tls-cert.pem
+2024/07/10 17:57:36 [INFO] TLS Enabled
+2024/07/10 17:57:36 [INFO] generating key: &{A:ecdsa S:256}
+2024/07/10 17:57:36 [INFO] encoded CSR
+2024/07/10 17:57:38 [INFO] Stored client certificate at /organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/msp/signcerts/cert.pem
+2024/07/10 17:57:38 [INFO] Stored root CA certificate at /organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/msp/cacerts/ca-org2-8054-ca-org2.pem
++ cp /organizations/peerOrganizations/org2.example.com/msp/config.yaml /organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/msp/config.yaml
++ fabric-ca-client enroll -u https://peer0:peer0pw@ca-org2:8054 --caname ca-org2 -M /organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls --enrollment.profile tls --csr.hosts peer0.org2.example.com --csr.hosts peer0-org2 --csr.hosts ca-org2 --csr.hosts localhost --tls.certfiles /organizations/fabric-ca/org2/tls-cert.pem
+2024/07/10 17:57:39 [INFO] TLS Enabled
+2024/07/10 17:57:39 [INFO] generating key: &{A:ecdsa S:256}
+2024/07/10 17:57:40 [INFO] encoded CSR
+2024/07/10 17:57:42 [INFO] Stored client certificate at /organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/signcerts/cert.pem
+2024/07/10 17:57:42 [INFO] Stored TLS root CA certificate at /organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/tlscacerts/tls-ca-org2-8054-ca-org2.pem
++ cp /organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/tlscacerts/tls-ca-org2-8054-ca-org2.pem /organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
++ cp /organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/signcerts/cert.pem /organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/server.crt
++ cp /organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/keystore/da7d927abccb8a5c69d345f0fdce519784775601308149334fd7ea0431572f9f_sk /organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/server.key
++ mkdir -p /organizations/peerOrganizations/org2.example.com/msp/tlscacerts
++ cp /organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/tlscacerts/tls-ca-org2-8054-ca-org2.pem /organizations/peerOrganizations/org2.example.com/msp/tlscacerts/ca.crt
++ mkdir -p /organizations/peerOrganizations/org2.example.com/tlsca
++ cp /organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/tlscacerts/tls-ca-org2-8054-ca-org2.pem /organizations/peerOrganizations/org2.example.com/tlsca/tlsca.org2.example.com-cert.pem
++ mkdir -p /organizations/peerOrganizations/org2.example.com/ca
++ cp /organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/msp/cacerts/ca-org2-8054-ca-org2.pem /organizations/peerOrganizations/org2.example.com/ca/ca.org2.example.com-cert.pem
++ fabric-ca-client enroll -u https://user1:user1pw@ca-org2:8054 --caname ca-org2 -M /organizations/peerOrganizations/org2.example.com/users/User1@org2.example.com/msp --tls.certfiles /organizations/fabric-ca/org2/tls-cert.pem
+2024/07/10 17:57:45 [INFO] TLS Enabled
+2024/07/10 17:57:45 [INFO] generating key: &{A:ecdsa S:256}
+2024/07/10 17:57:45 [INFO] encoded CSR
+2024/07/10 17:57:47 [INFO] Stored client certificate at /organizations/peerOrganizations/org2.example.com/users/User1@org2.example.com/msp/signcerts/cert.pem
+2024/07/10 17:57:48 [INFO] Stored root CA certificate at /organizations/peerOrganizations/org2.example.com/users/User1@org2.example.com/msp/cacerts/ca-org2-8054-ca-org2.pem
++ cp /organizations/peerOrganizations/org2.example.com/msp/config.yaml /organizations/peerOrganizations/org2.example.com/users/User1@org2.example.com/msp/config.yaml
++ fabric-ca-client enroll -u https://org2admin:org2adminpw@ca-org2:8054 --caname ca-org2 -M /organizations/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp --tls.certfiles /organizations/fabric-ca/org2/tls-cert.pem
+2024/07/10 17:57:49 [INFO] TLS Enabled
+2024/07/10 17:57:49 [INFO] generating key: &{A:ecdsa S:256}
+2024/07/10 17:57:49 [INFO] encoded CSR
+2024/07/10 17:57:51 [INFO] Stored client certificate at /organizations/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/signcerts/cert.pem
+2024/07/10 17:57:51 [INFO] Stored root CA certificate at /organizations/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/cacerts/ca-org2-8054-ca-org2.pem
++ cp /organizations/peerOrganizations/org2.example.com/msp/config.yaml /organizations/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/config.yaml
++ mkdir -p /organizations/peerOrganizations/org3.example.com/
++ export FABRIC_CA_CLIENT_HOME=/organizations/peerOrganizations/org3.example.com/
++ fabric-ca-client enroll -u https://admin:adminpw@ca-org3:9054 --caname ca-org3 --tls.certfiles /organizations/fabric-ca/org3/tls-cert.pem
+2024/07/10 17:57:52 [INFO] Created a default configuration file at /organizations/peerOrganizations/org3.example.com/fabric-ca-client-config.yaml
+2024/07/10 17:57:53 [INFO] TLS Enabled
+2024/07/10 17:57:53 [INFO] generating key: &{A:ecdsa S:256}
+2024/07/10 17:57:53 [INFO] encoded CSR
+2024/07/10 17:57:56 [INFO] Stored client certificate at /organizations/peerOrganizations/org3.example.com/msp/signcerts/cert.pem
+2024/07/10 17:57:56 [INFO] Stored root CA certificate at /organizations/peerOrganizations/org3.example.com/msp/cacerts/ca-org3-9054-ca-org3.pem
++ echo NodeOUs:
+  Enable: true
+  ClientOUIdentifier:
+    Certificate: cacerts/ca-org3-9054-ca-org3.pem
+    OrganizationalUnitIdentifier: client
+  PeerOUIdentifier:
+    Certificate: cacerts/ca-org3-9054-ca-org3.pem
+    OrganizationalUnitIdentifier: peer
+  AdminOUIdentifier:
+    Certificate: cacerts/ca-org3-9054-ca-org3.pem
+    OrganizationalUnitIdentifier: admin
+  OrdererOUIdentifier:
+    Certificate: cacerts/ca-org3-9054-ca-org3.pem
+    OrganizationalUnitIdentifier: orderer
++ fabric-ca-client register --caname ca-org3 --id.name peer0 --id.secret peer0pw --id.type peer --tls.certfiles /organizations/fabric-ca/org3/tls-cert.pem
+2024/07/10 17:57:56 [INFO] Configuration file location: /organizations/peerOrganizations/org3.example.com/fabric-ca-client-config.yaml
+2024/07/10 17:57:56 [INFO] TLS Enabled
+2024/07/10 17:57:56 [INFO] TLS Enabled
+Password: peer0pw
++ fabric-ca-client register --caname ca-org3 --id.name user1 --id.secret user1pw --id.type client --tls.certfiles /organizations/fabric-ca/org3/tls-cert.pem
+2024/07/10 17:57:57 [INFO] Configuration file location: /organizations/peerOrganizations/org3.example.com/fabric-ca-client-config.yaml
+2024/07/10 17:57:57 [INFO] TLS Enabled
+2024/07/10 17:57:57 [INFO] TLS Enabled
+Password: user1pw
++ fabric-ca-client register --caname ca-org3 --id.name org3admin --id.secret org3adminpw --id.type admin --tls.certfiles /organizations/fabric-ca/org3/tls-cert.pem
+2024/07/10 17:57:58 [INFO] Configuration file location: /organizations/peerOrganizations/org3.example.com/fabric-ca-client-config.yaml
+2024/07/10 17:57:58 [INFO] TLS Enabled
+2024/07/10 17:57:58 [INFO] TLS Enabled
+Password: org3adminpw
++ fabric-ca-client enroll -u https://peer0:peer0pw@ca-org3:9054 --caname ca-org3 -M /organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/msp --csr.hosts peer0.org3.example.com --csr.hosts peer0-org3 --tls.certfiles /organizations/fabric-ca/org3/tls-cert.pem
+2024/07/10 17:58:00 [INFO] TLS Enabled
+2024/07/10 17:58:00 [INFO] generating key: &{A:ecdsa S:256}
+2024/07/10 17:58:00 [INFO] encoded CSR
+2024/07/10 17:58:02 [INFO] Stored client certificate at /organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/msp/signcerts/cert.pem
+2024/07/10 17:58:03 [INFO] Stored root CA certificate at /organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/msp/cacerts/ca-org3-9054-ca-org3.pem
++ cp /organizations/peerOrganizations/org3.example.com/msp/config.yaml /organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/msp/config.yaml
++ fabric-ca-client enroll -u https://peer0:peer0pw@ca-org3:9054 --caname ca-org3 -M /organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls --enrollment.profile tls --csr.hosts peer0.org3.example.com --csr.hosts peer0-org3 --csr.hosts ca-org3 --csr.hosts localhost --tls.certfiles /organizations/fabric-ca/org3/tls-cert.pem
+2024/07/10 17:58:04 [INFO] TLS Enabled
+2024/07/10 17:58:04 [INFO] generating key: &{A:ecdsa S:256}
+2024/07/10 17:58:04 [INFO] encoded CSR
+2024/07/10 17:58:06 [INFO] Stored client certificate at /organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/signcerts/cert.pem
+2024/07/10 17:58:06 [INFO] Stored TLS root CA certificate at /organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/tlscacerts/tls-ca-org3-9054-ca-org3.pem
++ cp /organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/tlscacerts/tls-ca-org3-9054-ca-org3.pem /organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/ca.crt
++ cp /organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/signcerts/cert.pem /organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/server.crt
++ cp /organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/keystore/2d89e0f772a24b616cac4944a3c85fbc43c717aaad6f4e580fa6cd43506f2719_sk /organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/server.key
++ mkdir -p /organizations/peerOrganizations/org3.example.com/msp/tlscacerts
++ cp /organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/tlscacerts/tls-ca-org3-9054-ca-org3.pem /organizations/peerOrganizations/org3.example.com/msp/tlscacerts/ca.crt
++ mkdir -p /organizations/peerOrganizations/org3.example.com/tlsca
++ cp /organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/tlscacerts/tls-ca-org3-9054-ca-org3.pem /organizations/peerOrganizations/org3.example.com/tlsca/tlsca.org3.example.com-cert.pem
++ mkdir -p /organizations/peerOrganizations/org3.example.com/ca
++ cp /organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/msp/cacerts/ca-org3-9054-ca-org3.pem /organizations/peerOrganizations/org3.example.com/ca/ca.org3.example.com-cert.pem
++ fabric-ca-client enroll -u https://user1:user1pw@ca-org3:9054 --caname ca-org3 -M /organizations/peerOrganizations/org3.example.com/users/User1@org3.example.com/msp --tls.certfiles /organizations/fabric-ca/org3/tls-cert.pem
+2024/07/10 17:58:09 [INFO] TLS Enabled
+2024/07/10 17:58:09 [INFO] generating key: &{A:ecdsa S:256}
+2024/07/10 17:58:10 [INFO] encoded CSR
+2024/07/10 17:58:12 [INFO] Stored client certificate at /organizations/peerOrganizations/org3.example.com/users/User1@org3.example.com/msp/signcerts/cert.pem
+2024/07/10 17:58:12 [INFO] Stored root CA certificate at /organizations/peerOrganizations/org3.example.com/users/User1@org3.example.com/msp/cacerts/ca-org3-9054-ca-org3.pem
++ cp /organizations/peerOrganizations/org3.example.com/msp/config.yaml /organizations/peerOrganizations/org3.example.com/users/User1@org3.example.com/msp/config.yaml
++ fabric-ca-client enroll -u https://org3admin:org3adminpw@ca-org3:9054 --caname ca-org3 -M /organizations/peerOrganizations/org3.example.com/users/Admin@org3.example.com/msp --tls.certfiles /organizations/fabric-ca/org3/tls-cert.pem
+2024/07/10 17:58:13 [INFO] TLS Enabled
+2024/07/10 17:58:13 [INFO] generating key: &{A:ecdsa S:256}
+2024/07/10 17:58:13 [INFO] encoded CSR
+2024/07/10 17:58:15 [INFO] Stored client certificate at /organizations/peerOrganizations/org3.example.com/users/Admin@org3.example.com/msp/signcerts/cert.pem
+2024/07/10 17:58:16 [INFO] Stored root CA certificate at /organizations/peerOrganizations/org3.example.com/users/Admin@org3.example.com/msp/cacerts/ca-org3-9054-ca-org3.pem
++ cp /organizations/peerOrganizations/org3.example.com/msp/config.yaml /organizations/peerOrganizations/org3.example.com/users/Admin@org3.example.com/msp/config.yaml

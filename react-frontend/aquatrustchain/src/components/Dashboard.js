@@ -40,7 +40,7 @@ function Dashboard() {
     useEffect(() => {
         // Check if it's not the initial load
         if (!initialLoad) {
-            axios.get("http://localhost:3001/registration/recipients")
+            axios.get("http://api.aquatrust-chain.com/registration/recipients")
                 .then((response) => {
                     console.log('setListOfRecipients: ', response.data.list);
                     setListOfRecipients(response.data.list.map(item => item.ngo_name));
@@ -55,8 +55,8 @@ function Dashboard() {
     }, [initialLoad]);
 
     // Define the URL
-    const getUrl = 'http://localhost:3000/api/query-donation/';
-    const postUrl = 'http://localhost:3000/api/send-donation';
+    const getUrl = 'http://gateway.aquatrust-chain.com/api/query-donation/';
+    const postUrl = 'http://gateway.aquatrust-chain.com/api/send-donation';
 
     // Define the headers
     const headers = {

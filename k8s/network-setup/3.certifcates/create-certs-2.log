@@ -1,0 +1,313 @@
+Listing /tmp/scripts before chmod
+total 60
+-rw-r--r-- 1 root root  1958 Jul 11 02:06 ccp.sh
+-rw-r--r-- 1 root root   268 Jul 11 02:06 createAppChannel.sh
+-rw-r--r-- 1 root root  1171 Jul 11 02:06 createChannel.sh
+-rw-r--r-- 1 root root   160 Jul 11 02:06 createGenesis.sh
+-rw-r--r-- 1 root root 14813 Jul 11 02:06 orderer-certs.sh
+-rw-r--r-- 1 root root  4324 Jul 11 02:06 org1-certs.sh
+-rw-r--r-- 1 root root  4308 Jul 11 02:06 org2-certs.sh
+-rw-r--r-- 1 root root  4305 Jul 11 02:06 org3-certs.sh
+-rw-r--r-- 1 root root   159 Jul 11 02:06 updateAnchorPeer.sh
+Changing permissions of individual files in /tmp/scripts
+Listing /tmp/scripts after chmod
+total 60
+-rw-r--r-- 1 root root  1958 Jul 11 02:06 ccp.sh
+-rw-r--r-- 1 root root   268 Jul 11 02:06 createAppChannel.sh
+-rw-r--r-- 1 root root  1171 Jul 11 02:06 createChannel.sh
+-rw-r--r-- 1 root root   160 Jul 11 02:06 createGenesis.sh
+-rwxrwxrwx 1 root root 14813 Jul 11 02:06 orderer-certs.sh
+-rwxrwxrwx 1 root root  4324 Jul 11 02:06 org1-certs.sh
+-rwxrwxrwx 1 root root  4308 Jul 11 02:06 org2-certs.sh
+-rwxrwxrwx 1 root root  4305 Jul 11 02:06 org3-certs.sh
+-rw-r--r-- 1 root root   159 Jul 11 02:06 updateAnchorPeer.sh
+/organizations/ordererOrganizations/example.com
++ fabric-ca-client enroll -u https://admin:adminpw@ca-orderer:10054 --caname ca-orderer --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+2024/07/11 02:07:00 [INFO] Created a default configuration file at /organizations/ordererOrganizations/example.com/fabric-ca-client-config.yaml
+2024/07/11 02:07:01 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/ordererOrg/tls-cert.pem': open /organizations/fabric-ca/ordererOrg/tls-cert.pem: no such file or directory
+Register orderer
++ fabric-ca-client register --caname ca-orderer --id.name orderer --id.secret ordererpw --id.type orderer --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+2024/07/11 02:07:01 [INFO] Configuration file location: /organizations/ordererOrganizations/example.com/fabric-ca-client-config.yaml
+2024/07/11 02:07:01 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/ordererOrg/tls-cert.pem': open /organizations/fabric-ca/ordererOrg/tls-cert.pem: no such file or directory
+Register orderer2
++ fabric-ca-client register --caname ca-orderer --id.name orderer2 --id.secret ordererpw --id.type orderer --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+2024/07/11 02:07:01 [INFO] Configuration file location: /organizations/ordererOrganizations/example.com/fabric-ca-client-config.yaml
+2024/07/11 02:07:01 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/ordererOrg/tls-cert.pem': open /organizations/fabric-ca/ordererOrg/tls-cert.pem: no such file or directory
+Register orderer3
++ fabric-ca-client register --caname ca-orderer --id.name orderer3 --id.secret ordererpw --id.type orderer --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+2024/07/11 02:07:01 [INFO] Configuration file location: /organizations/ordererOrganizations/example.com/fabric-ca-client-config.yaml
+2024/07/11 02:07:02 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/ordererOrg/tls-cert.pem': open /organizations/fabric-ca/ordererOrg/tls-cert.pem: no such file or directory
++ fabric-ca-client register --caname ca-orderer --id.name orderer4 --id.secret ordererpw --id.type orderer --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+Register orderer4
+2024/07/11 02:07:02 [INFO] Configuration file location: /organizations/ordererOrganizations/example.com/fabric-ca-client-config.yaml
+2024/07/11 02:07:02 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/ordererOrg/tls-cert.pem': open /organizations/fabric-ca/ordererOrg/tls-cert.pem: no such file or directory
++ fabric-ca-client register --caname ca-orderer --id.name orderer5 --id.secret ordererpw --id.type orderer --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+Register orderer5
+2024/07/11 02:07:02 [INFO] Configuration file location: /organizations/ordererOrganizations/example.com/fabric-ca-client-config.yaml
+2024/07/11 02:07:02 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/ordererOrg/tls-cert.pem': open /organizations/fabric-ca/ordererOrg/tls-cert.pem: no such file or directory
+Register the orderer admin
++ fabric-ca-client register --caname ca-orderer --id.name ordererAdmin --id.secret ordererAdminpw --id.type admin --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+2024/07/11 02:07:02 [INFO] Configuration file location: /organizations/ordererOrganizations/example.com/fabric-ca-client-config.yaml
+2024/07/11 02:07:02 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/ordererOrg/tls-cert.pem': open /organizations/fabric-ca/ordererOrg/tls-cert.pem: no such file or directory
+Generate the orderer msp
++ fabric-ca-client enroll -u https://orderer:ordererpw@ca-orderer:10054 --caname ca-orderer -M /organizations/ordererOrganizations/example.com/orderers/orderer.example.com/msp --csr.hosts orderer.example.com --csr.hosts localhost --csr.hosts ca-orderer --csr.hosts orderer --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+2024/07/11 02:07:03 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/ordererOrg/tls-cert.pem': open /organizations/fabric-ca/ordererOrg/tls-cert.pem: no such file or directory
+Generate the orderer-tls certificates
++ fabric-ca-client enroll -u https://orderer:ordererpw@ca-orderer:10054 --caname ca-orderer -M /organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls --enrollment.profile tls --csr.hosts orderer.example.com --csr.hosts localhost --csr.hosts ca-orderer --csr.hosts orderer --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+2024/07/11 02:07:04 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/ordererOrg/tls-cert.pem': open /organizations/fabric-ca/ordererOrg/tls-cert.pem: no such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/tlscacerts/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/signcerts/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/keystore/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/tlscacerts/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer.example.com/tls/tlscacerts/*': No such file or directory
+Generate the orderer2 msp
++ fabric-ca-client enroll -u https://orderer:ordererpw@ca-orderer:10054 --caname ca-orderer -M /organizations/ordererOrganizations/example.com/orderers/orderer2.example.com/msp --csr.hosts orderer2.example.com --csr.hosts localhost --csr.hosts ca-orderer --csr.hosts orderer2 --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+2024/07/11 02:07:06 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/ordererOrg/tls-cert.pem': open /organizations/fabric-ca/ordererOrg/tls-cert.pem: no such file or directory
+Generate the orderer2-tls certificates
++ fabric-ca-client enroll -u https://orderer:ordererpw@ca-orderer:10054 --caname ca-orderer -M /organizations/ordererOrganizations/example.com/orderers/orderer2.example.com/tls --enrollment.profile tls --csr.hosts orderer2.example.com --csr.hosts localhost --csr.hosts ca-orderer2 --csr.hosts orderer2 --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+2024/07/11 02:07:07 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/ordererOrg/tls-cert.pem': open /organizations/fabric-ca/ordererOrg/tls-cert.pem: no such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer2.example.com/tls/tlscacerts/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer2.example.com/tls/signcerts/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer2.example.com/tls/keystore/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer2.example.com/tls/tlscacerts/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer2.example.com/tls/tlscacerts/*': No such file or directory
+Generate the orderer3 msp
++ fabric-ca-client enroll -u https://orderer:ordererpw@ca-orderer:10054 --caname ca-orderer -M /organizations/ordererOrganizations/example.com/orderers/orderer3.example.com/msp --csr.hosts orderer3.example.com --csr.hosts localhost --csr.hosts ca-orderer --csr.hosts orderer3 --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+2024/07/11 02:07:09 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/ordererOrg/tls-cert.pem': open /organizations/fabric-ca/ordererOrg/tls-cert.pem: no such file or directory
+Generate the orderer3-tls certificates
++ fabric-ca-client enroll -u https://orderer:ordererpw@ca-orderer:10054 --caname ca-orderer -M /organizations/ordererOrganizations/example.com/orderers/orderer3.example.com/tls --enrollment.profile tls --csr.hosts orderer3.example.com --csr.hosts localhost --csr.hosts ca-orderer --csr.hosts orderer3 --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+2024/07/11 02:07:10 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/ordererOrg/tls-cert.pem': open /organizations/fabric-ca/ordererOrg/tls-cert.pem: no such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer3.example.com/tls/tlscacerts/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer3.example.com/tls/signcerts/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer3.example.com/tls/keystore/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer3.example.com/tls/tlscacerts/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer3.example.com/tls/tlscacerts/*': No such file or directory
+Generate the orderer4 msp
++ fabric-ca-client enroll -u https://orderer:ordererpw@ca-orderer:10054 --caname ca-orderer -M /organizations/ordererOrganizations/example.com/orderers/orderer4.example.com/msp --csr.hosts orderer4.example.com --csr.hosts localhost --csr.hosts ca-orderer --csr.hosts orderer4 --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+2024/07/11 02:07:11 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/ordererOrg/tls-cert.pem': open /organizations/fabric-ca/ordererOrg/tls-cert.pem: no such file or directory
+Generate the orderer4-tls certificates
++ fabric-ca-client enroll -u https://orderer:ordererpw@ca-orderer:10054 --caname ca-orderer -M /organizations/ordererOrganizations/example.com/orderers/orderer4.example.com/tls --enrollment.profile tls --csr.hosts orderer4.example.com --csr.hosts localhost --csr.hosts ca-orderer4 --csr.hosts orderer4 --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+2024/07/11 02:07:12 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/ordererOrg/tls-cert.pem': open /organizations/fabric-ca/ordererOrg/tls-cert.pem: no such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer4.example.com/tls/tlscacerts/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer4.example.com/tls/signcerts/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer4.example.com/tls/keystore/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer4.example.com/tls/tlscacerts/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer4.example.com/tls/tlscacerts/*': No such file or directory
++ fabric-ca-client enroll -u https://orderer:ordererpw@ca-orderer:10054 --caname ca-orderer -M /organizations/ordererOrganizations/example.com/orderers/orderer5.example.com/msp --csr.hosts orderer5.example.com --csr.hosts localhost --csr.hosts ca-orderer --csr.hosts orderer5 --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+Generate the orderer5 msp
+2024/07/11 02:07:14 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/ordererOrg/tls-cert.pem': open /organizations/fabric-ca/ordererOrg/tls-cert.pem: no such file or directory
++ fabric-ca-client enroll -u https://orderer:ordererpw@ca-orderer:10054 --caname ca-orderer -M /organizations/ordererOrganizations/example.com/orderers/orderer5.example.com/tls --enrollment.profile tls --csr.hosts orderer5.example.com --csr.hosts localhost --csr.hosts ca-orderer5 --csr.hosts orderer5 --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+Generate the orderer5-tls certificates
+2024/07/11 02:07:15 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/ordererOrg/tls-cert.pem': open /organizations/fabric-ca/ordererOrg/tls-cert.pem: no such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer5.example.com/tls/tlscacerts/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer5.example.com/tls/signcerts/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer5.example.com/tls/keystore/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer5.example.com/tls/tlscacerts/*': No such file or directory
+cp: cannot stat '/organizations/ordererOrganizations/example.com/orderers/orderer5.example.com/tls/tlscacerts/*': No such file or directory
+Generate the admin msp
++ fabric-ca-client enroll -u https://ordererAdmin:ordererAdminpw@ca-orderer:10054 --caname ca-orderer -M /organizations/ordererOrganizations/example.com/users/Admin@example.com/msp --tls.certfiles /organizations/fabric-ca/ordererOrg/tls-cert.pem
+2024/07/11 02:07:16 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/ordererOrg/tls-cert.pem': open /organizations/fabric-ca/ordererOrg/tls-cert.pem: no such file or directory
++ mkdir -p /organizations/peerOrganizations/org1.example.com/
++ export FABRIC_CA_CLIENT_HOME=/organizations/peerOrganizations/org1.example.com/
++ fabric-ca-client enroll -u https://admin:adminpw@ca-org1:7054 --caname ca-org1 --tls.certfiles /organizations/fabric-ca/org1/tls-cert.pem
+2024/07/11 02:07:17 [INFO] Created a default configuration file at /organizations/peerOrganizations/org1.example.com/fabric-ca-client-config.yaml
+2024/07/11 02:07:18 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/org1/tls-cert.pem': open /organizations/fabric-ca/org1/tls-cert.pem: no such file or directory
++ echo NodeOUs:
+  Enable: true
+  ClientOUIdentifier:
+    Certificate: cacerts/ca-org1-7054-ca-org1.pem
+    OrganizationalUnitIdentifier: client
+  PeerOUIdentifier:
+    Certificate: cacerts/ca-org1-7054-ca-org1.pem
+    OrganizationalUnitIdentifier: peer
+  AdminOUIdentifier:
+    Certificate: cacerts/ca-org1-7054-ca-org1.pem
+    OrganizationalUnitIdentifier: admin
+  OrdererOUIdentifier:
+    Certificate: cacerts/ca-org1-7054-ca-org1.pem
+    OrganizationalUnitIdentifier: orderer
++ fabric-ca-client register --caname ca-org1 --id.name peer0 --id.secret peer0pw --id.type peer --tls.certfiles /organizations/fabric-ca/org1/tls-cert.pem
+2024/07/11 02:07:18 [INFO] Configuration file location: /organizations/peerOrganizations/org1.example.com/fabric-ca-client-config.yaml
+2024/07/11 02:07:18 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/org1/tls-cert.pem': open /organizations/fabric-ca/org1/tls-cert.pem: no such file or directory
++ fabric-ca-client register --caname ca-org1 --id.name user1 --id.secret user1pw --id.type client --tls.certfiles /organizations/fabric-ca/org1/tls-cert.pem
+2024/07/11 02:07:18 [INFO] Configuration file location: /organizations/peerOrganizations/org1.example.com/fabric-ca-client-config.yaml
+2024/07/11 02:07:18 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/org1/tls-cert.pem': open /organizations/fabric-ca/org1/tls-cert.pem: no such file or directory
++ fabric-ca-client register --caname ca-org1 --id.name org1admin --id.secret org1adminpw --id.type admin --tls.certfiles /organizations/fabric-ca/org1/tls-cert.pem
+2024/07/11 02:07:18 [INFO] Configuration file location: /organizations/peerOrganizations/org1.example.com/fabric-ca-client-config.yaml
+2024/07/11 02:07:18 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/org1/tls-cert.pem': open /organizations/fabric-ca/org1/tls-cert.pem: no such file or directory
++ fabric-ca-client enroll -u https://peer0:peer0pw@ca-org1:7054 --caname ca-org1 -M /organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp --csr.hosts peer0.org1.example.com --csr.hosts peer0-org1 --tls.certfiles /organizations/fabric-ca/org1/tls-cert.pem
+2024/07/11 02:07:19 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/org1/tls-cert.pem': open /organizations/fabric-ca/org1/tls-cert.pem: no such file or directory
++ cp /organizations/peerOrganizations/org1.example.com/msp/config.yaml /organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp/config.yaml
++ fabric-ca-client enroll -u https://peer0:peer0pw@ca-org1:7054 --caname ca-org1 -M /organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls --enrollment.profile tls --csr.hosts peer0.org1.example.com --csr.hosts peer0-org1 --csr.hosts ca-org1 --csr.hosts localhost --tls.certfiles /organizations/fabric-ca/org1/tls-cert.pem
+2024/07/11 02:07:21 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/org1/tls-cert.pem': open /organizations/fabric-ca/org1/tls-cert.pem: no such file or directory
++ cp /organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/tlscacerts/* /organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt
+cp: cannot stat '/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/tlscacerts/*': No such file or directory
++ cp /organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/signcerts/* /organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/server.crt
+cp: cannot stat '/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/signcerts/*': No such file or directory
++ cp /organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/keystore/* /organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/server.key
+cp: cannot stat '/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/keystore/*': No such file or directory
++ mkdir -p /organizations/peerOrganizations/org1.example.com/msp/tlscacerts
++ cp /organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/tlscacerts/* /organizations/peerOrganizations/org1.example.com/msp/tlscacerts/ca.crt
+cp: cannot stat '/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/tlscacerts/*': No such file or directory
++ mkdir -p /organizations/peerOrganizations/org1.example.com/tlsca
++ cp /organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/tlscacerts/* /organizations/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
+cp: cannot stat '/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/tlscacerts/*': No such file or directory
++ mkdir -p /organizations/peerOrganizations/org1.example.com/ca
++ cp /organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp/cacerts/* /organizations/peerOrganizations/org1.example.com/ca/ca.org1.example.com-cert.pem
+cp: cannot stat '/organizations/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp/cacerts/*': No such file or directory
++ fabric-ca-client enroll -u https://user1:user1pw@ca-org1:7054 --caname ca-org1 -M /organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp --tls.certfiles /organizations/fabric-ca/org1/tls-cert.pem
+2024/07/11 02:07:22 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/org1/tls-cert.pem': open /organizations/fabric-ca/org1/tls-cert.pem: no such file or directory
++ cp /organizations/peerOrganizations/org1.example.com/msp/config.yaml /organizations/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/config.yaml
++ fabric-ca-client enroll -u https://org1admin:org1adminpw@ca-org1:7054 --caname ca-org1 -M /organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp --tls.certfiles /organizations/fabric-ca/org1/tls-cert.pem
+2024/07/11 02:07:24 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/org1/tls-cert.pem': open /organizations/fabric-ca/org1/tls-cert.pem: no such file or directory
++ cp /organizations/peerOrganizations/org1.example.com/msp/config.yaml /organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp/config.yaml
++ mkdir -p /organizations/peerOrganizations/org2.example.com/
++ export FABRIC_CA_CLIENT_HOME=/organizations/peerOrganizations/org2.example.com/
++ fabric-ca-client enroll -u https://admin:adminpw@ca-org2:8054 --caname ca-org2 --tls.certfiles /organizations/fabric-ca/org2/tls-cert.pem
+2024/07/11 02:07:24 [INFO] Created a default configuration file at /organizations/peerOrganizations/org2.example.com/fabric-ca-client-config.yaml
+2024/07/11 02:07:25 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/org2/tls-cert.pem': open /organizations/fabric-ca/org2/tls-cert.pem: no such file or directory
++ echo NodeOUs:
+  Enable: true
+  ClientOUIdentifier:
+    Certificate: cacerts/ca-org2-8054-ca-org2.pem
+    OrganizationalUnitIdentifier: client
+  PeerOUIdentifier:
+    Certificate: cacerts/ca-org2-8054-ca-org2.pem
+    OrganizationalUnitIdentifier: peer
+  AdminOUIdentifier:
+    Certificate: cacerts/ca-org2-8054-ca-org2.pem
+    OrganizationalUnitIdentifier: admin
+  OrdererOUIdentifier:
+    Certificate: cacerts/ca-org2-8054-ca-org2.pem
+    OrganizationalUnitIdentifier: orderer
++ fabric-ca-client register --caname ca-org2 --id.name peer0 --id.secret peer0pw --id.type peer --tls.certfiles /organizations/fabric-ca/org2/tls-cert.pem
+2024/07/11 02:07:25 [INFO] Configuration file location: /organizations/peerOrganizations/org2.example.com/fabric-ca-client-config.yaml
+2024/07/11 02:07:26 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/org2/tls-cert.pem': open /organizations/fabric-ca/org2/tls-cert.pem: no such file or directory
++ fabric-ca-client register --caname ca-org2 --id.name user1 --id.secret user1pw --id.type client --tls.certfiles /organizations/fabric-ca/org2/tls-cert.pem
+2024/07/11 02:07:26 [INFO] Configuration file location: /organizations/peerOrganizations/org2.example.com/fabric-ca-client-config.yaml
+2024/07/11 02:07:26 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/org2/tls-cert.pem': open /organizations/fabric-ca/org2/tls-cert.pem: no such file or directory
++ fabric-ca-client register --caname ca-org2 --id.name org2admin --id.secret org2adminpw --id.type admin --tls.certfiles /organizations/fabric-ca/org2/tls-cert.pem
+2024/07/11 02:07:26 [INFO] Configuration file location: /organizations/peerOrganizations/org2.example.com/fabric-ca-client-config.yaml
+2024/07/11 02:07:26 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/org2/tls-cert.pem': open /organizations/fabric-ca/org2/tls-cert.pem: no such file or directory
++ fabric-ca-client enroll -u https://peer0:peer0pw@ca-org2:8054 --caname ca-org2 -M /organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/msp --csr.hosts peer0.org2.example.com --csr.hosts peer0-org2 --tls.certfiles /organizations/fabric-ca/org2/tls-cert.pem
+2024/07/11 02:07:27 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/org2/tls-cert.pem': open /organizations/fabric-ca/org2/tls-cert.pem: no such file or directory
++ cp /organizations/peerOrganizations/org2.example.com/msp/config.yaml /organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/msp/config.yaml
++ fabric-ca-client enroll -u https://peer0:peer0pw@ca-org2:8054 --caname ca-org2 -M /organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls --enrollment.profile tls --csr.hosts peer0.org2.example.com --csr.hosts peer0-org2 --csr.hosts ca-org2 --csr.hosts localhost --tls.certfiles /organizations/fabric-ca/org2/tls-cert.pem
+2024/07/11 02:07:28 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/org2/tls-cert.pem': open /organizations/fabric-ca/org2/tls-cert.pem: no such file or directory
++ cp /organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/tlscacerts/* /organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/ca.crt
+cp: cannot stat '/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/tlscacerts/*': No such file or directory
++ cp /organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/signcerts/* /organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/server.crt
+cp: cannot stat '/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/signcerts/*': No such file or directory
++ cp /organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/keystore/* /organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/server.key
+cp: cannot stat '/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/keystore/*': No such file or directory
++ mkdir -p /organizations/peerOrganizations/org2.example.com/msp/tlscacerts
++ cp /organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/tlscacerts/* /organizations/peerOrganizations/org2.example.com/msp/tlscacerts/ca.crt
+cp: cannot stat '/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/tlscacerts/*': No such file or directory
++ mkdir -p /organizations/peerOrganizations/org2.example.com/tlsca
++ cp /organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/tlscacerts/* /organizations/peerOrganizations/org2.example.com/tlsca/tlsca.org2.example.com-cert.pem
+cp: cannot stat '/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/tls/tlscacerts/*': No such file or directory
++ mkdir -p /organizations/peerOrganizations/org2.example.com/ca
++ cp /organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/msp/cacerts/* /organizations/peerOrganizations/org2.example.com/ca/ca.org2.example.com-cert.pem
+cp: cannot stat '/organizations/peerOrganizations/org2.example.com/peers/peer0.org2.example.com/msp/cacerts/*': No such file or directory
++ fabric-ca-client enroll -u https://user1:user1pw@ca-org2:8054 --caname ca-org2 -M /organizations/peerOrganizations/org2.example.com/users/User1@org2.example.com/msp --tls.certfiles /organizations/fabric-ca/org2/tls-cert.pem
+2024/07/11 02:07:30 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/org2/tls-cert.pem': open /organizations/fabric-ca/org2/tls-cert.pem: no such file or directory
++ cp /organizations/peerOrganizations/org2.example.com/msp/config.yaml /organizations/peerOrganizations/org2.example.com/users/User1@org2.example.com/msp/config.yaml
++ fabric-ca-client enroll -u https://org2admin:org2adminpw@ca-org2:8054 --caname ca-org2 -M /organizations/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp --tls.certfiles /organizations/fabric-ca/org2/tls-cert.pem
+2024/07/11 02:07:31 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/org2/tls-cert.pem': open /organizations/fabric-ca/org2/tls-cert.pem: no such file or directory
++ cp /organizations/peerOrganizations/org2.example.com/msp/config.yaml /organizations/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp/config.yaml
++ mkdir -p /organizations/peerOrganizations/org3.example.com/
++ export FABRIC_CA_CLIENT_HOME=/organizations/peerOrganizations/org3.example.com/
++ fabric-ca-client enroll -u https://admin:adminpw@ca-org3:9054 --caname ca-org3 --tls.certfiles /organizations/fabric-ca/org3/tls-cert.pem
+2024/07/11 02:07:32 [INFO] Created a default configuration file at /organizations/peerOrganizations/org3.example.com/fabric-ca-client-config.yaml
+2024/07/11 02:07:33 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/org3/tls-cert.pem': open /organizations/fabric-ca/org3/tls-cert.pem: no such file or directory
++ echo NodeOUs:
+  Enable: true
+  ClientOUIdentifier:
+    Certificate: cacerts/ca-org3-9054-ca-org3.pem
+    OrganizationalUnitIdentifier: client
+  PeerOUIdentifier:
+    Certificate: cacerts/ca-org3-9054-ca-org3.pem
+    OrganizationalUnitIdentifier: peer
+  AdminOUIdentifier:
+    Certificate: cacerts/ca-org3-9054-ca-org3.pem
+    OrganizationalUnitIdentifier: admin
+  OrdererOUIdentifier:
+    Certificate: cacerts/ca-org3-9054-ca-org3.pem
+    OrganizationalUnitIdentifier: orderer
++ fabric-ca-client register --caname ca-org3 --id.name peer0 --id.secret peer0pw --id.type peer --tls.certfiles /organizations/fabric-ca/org3/tls-cert.pem
+2024/07/11 02:07:33 [INFO] Configuration file location: /organizations/peerOrganizations/org3.example.com/fabric-ca-client-config.yaml
+2024/07/11 02:07:33 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/org3/tls-cert.pem': open /organizations/fabric-ca/org3/tls-cert.pem: no such file or directory
++ fabric-ca-client register --caname ca-org3 --id.name user1 --id.secret user1pw --id.type client --tls.certfiles /organizations/fabric-ca/org3/tls-cert.pem
+2024/07/11 02:07:33 [INFO] Configuration file location: /organizations/peerOrganizations/org3.example.com/fabric-ca-client-config.yaml
+2024/07/11 02:07:33 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/org3/tls-cert.pem': open /organizations/fabric-ca/org3/tls-cert.pem: no such file or directory
++ fabric-ca-client register --caname ca-org3 --id.name org3admin --id.secret org3adminpw --id.type admin --tls.certfiles /organizations/fabric-ca/org3/tls-cert.pem
+2024/07/11 02:07:33 [INFO] Configuration file location: /organizations/peerOrganizations/org3.example.com/fabric-ca-client-config.yaml
+2024/07/11 02:07:33 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/org3/tls-cert.pem': open /organizations/fabric-ca/org3/tls-cert.pem: no such file or directory
++ fabric-ca-client enroll -u https://peer0:peer0pw@ca-org3:9054 --caname ca-org3 -M /organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/msp --csr.hosts peer0.org3.example.com --csr.hosts peer0-org3 --tls.certfiles /organizations/fabric-ca/org3/tls-cert.pem
+2024/07/11 02:07:34 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/org3/tls-cert.pem': open /organizations/fabric-ca/org3/tls-cert.pem: no such file or directory
++ cp /organizations/peerOrganizations/org3.example.com/msp/config.yaml /organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/msp/config.yaml
++ fabric-ca-client enroll -u https://peer0:peer0pw@ca-org3:9054 --caname ca-org3 -M /organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls --enrollment.profile tls --csr.hosts peer0.org3.example.com --csr.hosts peer0-org3 --csr.hosts ca-org3 --csr.hosts localhost --tls.certfiles /organizations/fabric-ca/org3/tls-cert.pem
+2024/07/11 02:07:35 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/org3/tls-cert.pem': open /organizations/fabric-ca/org3/tls-cert.pem: no such file or directory
++ cp /organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/tlscacerts/* /organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/ca.crt
+cp: cannot stat '/organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/tlscacerts/*': No such file or directory
++ cp /organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/signcerts/* /organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/server.crt
+cp: cannot stat '/organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/signcerts/*': No such file or directory
++ cp /organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/keystore/* /organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/server.key
+cp: cannot stat '/organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/keystore/*': No such file or directory
++ mkdir -p /organizations/peerOrganizations/org3.example.com/msp/tlscacerts
++ cp /organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/tlscacerts/* /organizations/peerOrganizations/org3.example.com/msp/tlscacerts/ca.crt
+cp: cannot stat '/organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/tlscacerts/*': No such file or directory
++ mkdir -p /organizations/peerOrganizations/org3.example.com/tlsca
++ cp /organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/tlscacerts/* /organizations/peerOrganizations/org3.example.com/tlsca/tlsca.org3.example.com-cert.pem
+cp: cannot stat '/organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/tls/tlscacerts/*': No such file or directory
++ mkdir -p /organizations/peerOrganizations/org3.example.com/ca
++ cp /organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/msp/cacerts/* /organizations/peerOrganizations/org3.example.com/ca/ca.org3.example.com-cert.pem
+cp: cannot stat '/organizations/peerOrganizations/org3.example.com/peers/peer0.org3.example.com/msp/cacerts/*': No such file or directory
++ fabric-ca-client enroll -u https://user1:user1pw@ca-org3:9054 --caname ca-org3 -M /organizations/peerOrganizations/org3.example.com/users/User1@org3.example.com/msp --tls.certfiles /organizations/fabric-ca/org3/tls-cert.pem
+2024/07/11 02:07:37 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/org3/tls-cert.pem': open /organizations/fabric-ca/org3/tls-cert.pem: no such file or directory
++ cp /organizations/peerOrganizations/org3.example.com/msp/config.yaml /organizations/peerOrganizations/org3.example.com/users/User1@org3.example.com/msp/config.yaml
++ fabric-ca-client enroll -u https://org3admin:org3adminpw@ca-org3:9054 --caname ca-org3 -M /organizations/peerOrganizations/org3.example.com/users/Admin@org3.example.com/msp --tls.certfiles /organizations/fabric-ca/org3/tls-cert.pem
+2024/07/11 02:07:39 [INFO] TLS Enabled
+Error: Failed to get client TLS config: Failed to read '/organizations/fabric-ca/org3/tls-cert.pem': open /organizations/fabric-ca/org3/tls-cert.pem: no such file or directory
++ cp /organizations/peerOrganizations/org3.example.com/msp/config.yaml /organizations/peerOrganizations/org3.example.com/users/Admin@org3.example.com/msp/config.yaml

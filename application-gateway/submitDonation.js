@@ -4,17 +4,22 @@ const path = require('path');
 const util = require('util');
 const { Wallets, Gateway } = require('fabric-network');
 const cors = require('cors');
+const { Storage } = require('@google-cloud/storage');
 
 const app = express();
-const port = 3000;
-
-// Configure CORS to allow requests from frontend
+const port = 4000;
 app.use(cors());
 
-const testNetworkRoot = path.resolve(require('os').homedir(), 'hyperledger-fabric/fabric-samples/test-network');
+const bucketName = 'k8s-fabric';
+const testNetworkRoot = 'organizations'; //'peerOrganizations'
+const serviceAccountKeyFile = '/usr/src/gateway/ciel-428616-38cb8c70eb10.json';
 
 const gateway = new Gateway();
 let wallet;
+
+const storage = new Storage({
+    keyFilename: serviceAccountKeyFile,
+});
 
 async function init() {
     wallet = await Wallets.newFileSystemWallet('./wallet');
@@ -27,23 +32,25 @@ app.use(express.json());
 async function getContract(identityLabel) {
     const orgName = identityLabel.split('@')[1];
     const orgNameWithoutDomain = orgName.split('.')[0];
+    const filePath = `${testNetworkRoot}/peerOrganizations/${orgName}/connection-${orgNameWithoutDomain}.json`;
 
-    let connectionProfile = JSON.parse(fs.readFileSync(
-        path.join(testNetworkRoot,
-            'organizations/peerOrganizations',
-            orgName,
-            `/connection-${orgNameWithoutDomain}.json`), 'utf8')
-    );
+    try {
+        const [file] = await storage.bucket(bucketName).file(filePath).download();
+        const connectionProfile = JSON.parse(file.toString());
 
-    let connectionOptions = {
-        identity: identityLabel,
-        wallet: wallet,
-        discovery: { enabled: true, asLocalhost: true }
-    };
+        const connectionOptions = {
+            identity: identityLabel,
+            wallet: wallet
+        };
 
-    await gateway.connect(connectionProfile, connectionOptions);
-    const network = await gateway.getNetwork('mychannel');
-    return network.getContract('water_donation');
+        await gateway.connect(connectionProfile, connectionOptions);
+        const network = await gateway.getNetwork('mychannel');
+        console.log('=====network====== ', network);
+        return network.getContract('water_donation');
+    } catch (error) {
+        console.error(`Error fetching connection profile: ${error}`);
+        throw error;
+    }
 }
 
 // Add block listener function
