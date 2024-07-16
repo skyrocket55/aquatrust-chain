@@ -1,19 +1,29 @@
 {
-  "name": "chaincode",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-        "start": "fabric-chaincode-node start"
-  },
-  "author": "Ciel Recuerdo",
-  "license": "ISC",
-  "engines": {
+    "name": "chaincode",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "fabric-chaincode-node start",
+        "test": "jest --coverage",
+        "lint": "eslint .",
+        "lint:json": "jsonlint collections_config.json"
+    },
+    "author": "Ciel Recuerdo",
+    "license": "ISC",
+    "engines": {
         "node": ">=12",
         "npm": ">=5"
     },
     "dependencies": {
         "fabric-contract-api": "^2.2.0",
         "fabric-shim": "^2.2.0"
+    },
+    "devDependencies": {
+        "eslint": "^7.32.0",
+        "eslint-plugin-jest": "^24.7.0",
+        "eslint-plugin-node": "^11.1.0",
+        "jest": "^27.5.1",
+        "jsonlint": "^1.6.3"
     }
 }
