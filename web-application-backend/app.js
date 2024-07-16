@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-
+require('dotenv').config(); // Load environment variables from .env file
 // To fix CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource.
 app.use(cors());
 
@@ -17,12 +17,12 @@ app.use('/registration', registrationRoute);
 app.use('/donations', DonationRoute);
 
 // Define the port for the server
-const PORT = process.env.port || 3001;
+const PORT = process.env.port || 3008;
 
 // Start the server
 const db = require('./models');
 db.sequelize.sync().then(() => {
-    app.listen(3001, () => {
+    app.listen(PORT, () => {
         console.log(`CORS-enabled Server is running on port ${PORT}`);
     });
 });

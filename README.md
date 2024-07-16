@@ -4,13 +4,9 @@ The project focuses on the bulk donation of water across NGO that will be then d
 
 ##### Team #####
 ```
-1. Ciel Recuerdo: Architect, Blockchain Developer, Full Stack Developer, Project Manager
+1. Ciel Recuerdo: Architect - Application and Infrastructure/Deployment, Blockchain Developer, Full Stack Developer, Project Manager
 
-2. John Vincent Escalante: Business Analyst 
-
-3. Om Chevli: Front End Developer
-
-4. Harold Felipe: Web App Backend Developer
+2. John Vincent Escalante: Business Analyst, CI/CD
 ```
 
 ##### Requirements #####
@@ -33,13 +29,10 @@ Org3MSP: Acts as an observer with read-only access to some transaction details.
 7. Front-end to be integrated with the gateway or API to communicate with Smart Contracts and separately integration with the web application.
  
 
-##### State Diagram #####
-![alt text](image.png)
-
 ##### Sequence Diagram #####
 ![alt text](image-1.png)
 
-##### Architecture #####
+##### Application Architecture #####
 ![alt text](image-2.png)
 
 ##### Roles and Policies #####
@@ -62,17 +55,6 @@ Check README files on all the folders. Setup in the following order:
 
 
 ##### Snapshots of Application Results #####
-> POST Donation: Org3 with Read Only Access
-![alt text](image-3.png)
 
-> POST Donation
-![alt text](image-4.png)
-
-![alt text](image-6.png)
-
-![alt text](image-7.png)
-
-> GET Donation
-![alt text](image-5.png)
 
 

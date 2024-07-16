@@ -1,3 +1,4 @@
+require('dotenv').config(); // Load environment variables from .env file
 const dbConfig = require('../config/db.config.js');
 
 const Sequelize = require('sequelize');

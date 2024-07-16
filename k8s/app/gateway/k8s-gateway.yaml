@@ -16,14 +16,6 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: gateway-pvc
-      initContainers:
-        - name: init-wallet
-          image: skyrocket55/gateway:1.4
-          command: ["node", "addToWallet.js"]
-          volumeMounts:
-            - name: data
-              mountPath: /usr/src/gateway/wallet
-              subPath: wallet      
       containers:
         - name: gateway
           resources:
@@ -33,7 +25,7 @@ spec:
             limits:
               memory: "300Mi"
               cpu: "200m"  
-          image: skyrocket55/gateway:1.4
+          image: skyrocket55/gateway:1.9
           # Uncomment the following during development/testing of the image
           # imagePullPolicy: Always
           volumeMounts:
