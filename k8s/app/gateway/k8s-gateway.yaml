@@ -24,16 +24,23 @@ spec:
               cpu: "100m"
             limits:
               memory: "300Mi"
-              cpu: "200m"  
-          image: skyrocket55/gateway:1.9
+              cpu: "200m"
+          image: skyrocket55/gateway:1.10
           # Uncomment the following during development/testing of the image
           # imagePullPolicy: Always
           volumeMounts:
             - name: data
               mountPath: /usr/src/gateway/wallet
               subPath: wallet
+      hostAliases:
+        - ip: "34.172.179.190"
+          hostnames:
+            - "peer0.org1.example.com"
+            - "peer0.org2.example.com"
+            - "peer0.org3.example.com"
+            - "orderer.example.com"
 ---
-# Expose the port 7051 as ClusterIP
+
 apiVersion: v1
 kind: Service
 metadata:
