@@ -30,4 +30,16 @@ spec:
   storageClassName: storage-class
   resources:
     requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: hlf-ca-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: storage-class
+  resources:
+    requests:
       storage: 1Gi      

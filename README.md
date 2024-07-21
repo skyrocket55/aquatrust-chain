@@ -7,7 +7,7 @@ The project focuses on the bulk donation of water across NGO that will be then d
 ```
 1. Ciel Recuerdo: Architect - Application and Infrastructure/Deployment, Blockchain Developer, Full Stack Engineer, Project Manager
 
-2. John Vincent Escalante: Business Analyst, CI/CD
+2. John Vincent Escalante: Business Analyst, DevOps Engineer
 
 3. Om Chevli: Flutter Front-end
 
